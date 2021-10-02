@@ -1,4 +1,5 @@
 ﻿#include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 void insertionSort(int* array, int left, int right)
@@ -51,7 +52,7 @@ void quickSort(int* array, int left, int right)
 
 bool tests()
 {
-#define SIZETESTS 3
+    #define SIZETESTS 3
     int enteredArray[SIZETESTS][20] = {{48, 50, 79, 18, 50, 40, 15, 51, 47, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {98, 57, 31, 18, 0, 61, 48, 68, 49, 27, 38, 34, 98, 15, 79, 76, 2, 11, 71, 77}, {50, 24, 46, 83, 93, 53, 79, 0, 90, 62, 71, 39, 72, 12, 6, 0, 0, 0, 0, 0}};
     const int result[SIZETESTS][20] = {{15, 18, 26, 40, 47, 48, 50, 50, 51, 79, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 2, 11, 15, 18, 27, 31, 34, 38, 48, 49, 57, 61, 68, 71, 76, 77, 79, 98, 98}, {0, 6, 12, 24, 39, 46, 50, 53, 62, 71, 72, 79, 83, 90, 93, 0, 0, 0, 0, 0}};
     const int amount[SIZETESTS] = {10, 20, 15};
@@ -76,11 +77,10 @@ int main()
         printf("%s", "Tests failed!");
         return 0;
     }
-#define SIZE 100
-    int array[SIZE] = {0};
     int amount = 0;
-    printf("%s ", "Enter amount of array elements <= 100:");
+    printf("%s ", "Enter amount of array elements:");
     scanf("%d", &amount);
+    int *array = calloc(amount, sizeof(int));
     printf("%s ", "Enter array elements:");
     for (int i = 0; i < amount; ++i)
     {
@@ -91,5 +91,6 @@ int main()
     {
         printf("%d ", array[i]);
     }
+    free(array);
     return 0;
 }
