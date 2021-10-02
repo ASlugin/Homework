@@ -54,8 +54,31 @@ bool binarySearch(int *array, int left, int right, int number)
     return binarySearch(array, (right + left) / 2 + 1, right, number);
 }
 
+bool tests()
+{
+    #define SIZE 5
+    #define SIZEARRAY 10
+    int array[SIZEARRAY] = {12, 34, 2, 5, 78, 97, 14, 16, 4, 3};
+    const int number[SIZE] = {5, 45, 67, 12, 97};
+    bool result[SIZE] = {true, false, false, true, true};
+    quickSort(array, 0, SIZEARRAY - 1);
+    for (int i = 0; i < SIZE; ++i)
+    {
+        if (binarySearch(array, 0, SIZEARRAY - 1, number[i]) != result[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 int main()
 {
+    if (!tests())
+    {
+        printf("%s", "Tests failed!");
+        return 0;
+    }
     int n = 0;
     printf("%s ", "Enter value \"n\":");
     scanf("%d", &n);
