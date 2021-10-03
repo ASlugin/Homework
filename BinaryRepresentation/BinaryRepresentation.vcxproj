@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{747fb6f5-607f-42f6-9bb4-671527500e59}</ProjectGuid>
-    <RootNamespace>ExponentiationLogn</RootNamespace>
+    <ProjectGuid>{13779054-d152-4241-9d70-eb2cb6cb5192}</ProjectGuid>
+    <RootNamespace>BinaryRepresentation</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,8 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ExponentiationLogn.c">
-      <DiagnosticsFormat Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Classic</DiagnosticsFormat>
+    <ClCompile Include="BinaryRepresentation.c">
       <SDLCheck Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</SDLCheck>
     </ClCompile>
   </ItemGroup>
