@@ -1,0 +1,4 @@
+﻿  ExponentiationLogn.c
+C:\Users\Александр\Desktop\Учеба\Программирование\Homework 14.09\ExponentiationLogn\ExponentiationLogn.c(55): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Александр\Desktop\Учеба\Программирование\Homework 14.09\ExponentiationLogn\ExponentiationLogn.c(58): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  ExponentiationLogn.vcxproj -> C:\Users\Александр\Desktop\Учеба\Программирование\Homework 14.09\ExponentiationLogn\Debug\ExponentiationLogn.exe
