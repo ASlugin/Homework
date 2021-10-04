@@ -34,11 +34,12 @@ void quickSort(int* array, int left, int right)
 
 bool binarySearch(int *array, int left, int right, int number)
 {
+    const int middle = (right + left) / 2;
     if (right < left)
     {
         return false;
     }
-    if (number == array[(right + left) / 2])
+    if (number == array[middle])
     {
         return true;
     }
@@ -47,11 +48,11 @@ bool binarySearch(int *array, int left, int right, int number)
         return false;
     }
 
-    if (number < array[(right + left) / 2])
+    if (number < array[middle])
     {
-        return binarySearch(array, left, (right + left) / 2 - 1, number);
+        return binarySearch(array, left, middle - 1, number);
     }
-    return binarySearch(array, (right + left) / 2 + 1, right, number);
+    return binarySearch(array, middle + 1, right, number);
 }
 
 bool tests()
@@ -86,8 +87,13 @@ int main()
     printf("%s ", "Enter value \"k\":");
     scanf("%d", &k);
     
-    srand((int) time(NULL));
+    srand((unsigned)time(NULL));
     int *array = malloc(n * sizeof(int));
+    if (array == NULL)
+    {
+        printf("%s", "Allocation error");
+        return 0;
+    }
     printf("%s ", "Array of random numbers:");
     for (int i = 0; i < n; ++i)
     {
@@ -102,7 +108,7 @@ int main()
         int randomNumber = rand() % 100;
         if (binarySearch(array, 0, n - 1, randomNumber))
         {
-            printf("%s%d%s\n", "\"",randomNumber, "\" is contained in array");
+            printf("%s%d%s\n", "\"", randomNumber, "\" is contained in array");
         }
         else
         {
