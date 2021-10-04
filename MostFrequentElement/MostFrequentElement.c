@@ -62,7 +62,12 @@ int frequentElement(int* array, int amount)
 bool tests()
 {
     #define SIZE 3
-    int enteredArray[SIZE][10] = {{4, 1, 7, 8, 3, 0, 0, 0, 0, 0}, {4, 9 ,7, 9, 9, 4, 3, 0, 0, 0}, {3, 1, 4, 9, 1, 3, 4, 9, 4, 7}};
+    int enteredArray[SIZE][10] = 
+    {
+    {4, 1, 7, 8, 3, 0, 0, 0, 0, 0}, 
+    {4, 9 ,7, 9, 9, 4, 3, 0, 0, 0}, 
+    {3, 1, 4, 9, 1, 3, 4, 9, 4, 7}
+    };
     const int results[SIZE] = {1, 9, 4};
     const int amount[SIZE] = {5, 7, 10};
     for (int i = 0; i < SIZE; ++i)
@@ -93,6 +98,11 @@ int main()
         return 0;
     }
     int *array = calloc(amount, sizeof(int));
+    if (array == NULL)
+    {
+        printf("%s", "Allocation error");
+        return 0;
+    }
     printf("%s ", "Enter array elements:");
     for (int i = 0; i < amount; ++i)
     {
