@@ -9,8 +9,8 @@ int sumDigits(int number)
     int sum = 0;
     while (number > 0)
     {
-        sum = sum + number % 10;
-        number = number / 10;
+        sum += number % 10;
+        number /= 10;
     }
     return sum;
 }
@@ -93,8 +93,8 @@ int main()
     {
         printf("%d ", arrayElementsWithMaxSumDigits[i]);
     }
-
-    free(arrayElementsWithMaxSumDigits);
+    
     free(array);
+    free(arrayElementsWithMaxSumDigits);
     return 0;
 }
