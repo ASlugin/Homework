@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdbool.h>
 
+
 void decToBin(int *binArray, int number, int amount)
 {
     for (int i = 0; i < amount; ++i)
@@ -181,6 +182,7 @@ int main()
         printf("%s", "Tests failed!");
         return 0;
     }
+
     setlocale(LC_ALL, "Rus");
     int firstNumber = 0;
     printf("%s ", "Введите первое число:");
@@ -188,15 +190,8 @@ int main()
     int seсondNumber = 0;
     printf("%s ", "Введите второе число:");
     scanf("%d", &seсondNumber);
-
+    
     #define SIZE sizeof(int) * 8
-    const int maxValue = (int)pow(2, SIZE - 1) - 1;
-    const int minValue = (int)pow(2, SIZE - 1) * -1;
-    if (firstNumber > maxValue || firstNumber < minValue || seсondNumber > maxValue || seсondNumber < minValue)
-    {
-        printf("%s%d%s%d%s", "Введите числа из диапазона [", minValue, "; ", maxValue, "]");
-        return 0;
-    }
 
     int firstNumberBin[SIZE] = {0};
     decToBin(firstNumberBin, firstNumber, SIZE);
