@@ -6,18 +6,16 @@ void selectionSort(int *array, int amount)
 {
     for (int i = 0; i < amount; ++i)
     {
-        int min = array[i];
         int indexMin = i;
         for (int j = i + 1; j < amount; ++j)
         {
-            if (array[j] < min)
+            if (array[j] < array[indexMin])
             {
-                min = array[j];
                 indexMin = j;
             }
         }
         const int temp = array[i];
-        array[i] = min;
+        array[i] = array[indexMin];
         array[indexMin] = temp;
     }
 }
@@ -27,15 +25,15 @@ bool tests()
     #define AMOUNTTESTS 3
     int array[AMOUNTTESTS][10] = 
     {
-    {9, 8, 7, 6, 5, 4, 3, 2, 1, 0},
-    {15, 64, 32, 14, 62, 15, 12, 7, 45, 3},
-    {32, 12, 14, 12, 65, 9, 7, 6, 16, 17}
+        {9, 8, 7, 6, 5, 4, 3, 2, 1, 0},
+        {15, 64, 32, 14, 62, 15, 12, 7, 45, 3},
+        {32, 12, 14, 12, 65, 9, 7, 6, 16, 17}
     };
     int result[AMOUNTTESTS][10] =
     {
-    {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
-    {3, 7, 12, 14, 15, 15, 32, 45, 62, 64},
-    {6, 7, 9, 12, 12, 14, 16, 17, 32, 65}
+        {0, 1, 2, 3, 4, 5, 6, 7, 8, 9},
+        {3, 7, 12, 14, 15, 15, 32, 45, 62, 64},
+        {6, 7, 9, 12, 12, 14, 16, 17, 32, 65}
     };
     
     for (int i = 0; i < AMOUNTTESTS; ++i)
