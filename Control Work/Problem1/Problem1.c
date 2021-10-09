@@ -84,6 +84,7 @@ int main()
     if (arrayElementsWithMaxSumDigits == NULL)
     {
         printf("%s", "Allocation error");
+        free(array);
         return 0;
     }
 
