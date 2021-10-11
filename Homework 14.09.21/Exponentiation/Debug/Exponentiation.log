@@ -1,4 +1,0 @@
-﻿  Exponentiation.c
-C:\Users\Александр\Desktop\Учеба\Программирование\Homework 14.09\Exponentiation\Exponentiation.c(45,5): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Александр\Desktop\Учеба\Программирование\Homework 14.09\Exponentiation\Exponentiation.c(48,5): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  Exponentiation.vcxproj -> C:\Users\Александр\Desktop\Учеба\Программирование\Homework 14.09\Exponentiation\Debug\Exponentiation.exe
