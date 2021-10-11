@@ -11,13 +11,20 @@ int main()
         printf("%s", "Tests failed!");
         return 0;
     }
-    PhoneBook records[101];
+    PhoneBook records[100];
     int countRecords = 0;
     readInitialFile(records, &countRecords, "PhoneBook.txt");
 
-    printf("%s", "Phonebook commands:\n0 - exit\n1 - add record (name and number)\n2 - print all available records\n");
-    printf("%s", "3 - find number phone by name\n4 - find name by number phone\n5 - save actual data to the file\n");
-    while (1)
+    printf("%s", "Phonebook commands:\n");
+    printf("%s", "0 - exit\n");
+    printf("%s", "1 - add record (name and number)\n");
+    printf("%s", "2 - print all available records\n");
+    printf("%s", "3 - find number phone by name\n");
+    printf("%s", "4 - find name by number phone\n");
+    printf("%s", "5 - save actual data to the file\n");
+
+
+    while (true)
     {
         int code = -1;
         printf("%s", "Enter code: ");
@@ -32,9 +39,9 @@ int main()
             {
                 if (countRecords < 100)
                 {
-                printf("%s", "Enter name and number: ");
-                scanf("%s %s", &records[countRecords].name, &records[countRecords].number);
-                ++countRecords;
+                    printf("%s", "Enter name and number: ");
+                    scanf("%s %s", &records[countRecords].name, &records[countRecords].number);
+                    ++countRecords;
                 }
                 else
                 {
@@ -55,6 +62,11 @@ int main()
                 printf("%s", "Enter name for search: ");
                 char nameSearch[50];
                 scanf("%s", nameSearch);
+                if (findNumberByName(records, nameSearch, countRecords) == NULL)
+                {
+                    printf("%s\n", "Nothing found");
+                    break;
+                }
                 printf("%s\n", findNumberByName(records, nameSearch, countRecords));
                 break;
             }
@@ -63,6 +75,11 @@ int main()
                 char numberSearch[30];
                 printf("%s", "Enter number for search: ");
                 scanf("%s", numberSearch);
+                if (findNameByNumber(records, numberSearch, countRecords) == NULL)
+                {
+                    printf("%s\n", "Nothing found");
+                    break;
+                }
                 printf("%s\n", findNameByNumber(records, numberSearch, countRecords));
                 break;
             }

@@ -3,21 +3,22 @@
 #include <stdio.h>
 #include <string.h>
 
-void readInitialFile(PhoneBook* array, int* count, char file[])
+void readInitialFile(PhoneBook* array, int* count, const char file[])
 {
     FILE* book = fopen(file, "r");
-    if (book != NULL)
+    if (book == NULL)
     {
-        while (!feof(book))
-        {
-            fscanf(book, "%s %s\n", array[(*count)].name, array[(*count)].number);
-            (*count)++;
-        }
-        fclose(book);
+        return;
     }
+    while (!feof(book))
+    {
+        fscanf(book, "%s %s\n", array[(*count)].name, array[(*count)].number);
+        (*count)++;
+    }
+    fclose(book);
 }
 
-int saveData(PhoneBook* array, int count, char file[])
+int saveData(const PhoneBook* array, const int count, const char file[])
 {
     FILE* phonesBook = fopen(file, "w");
     if (phonesBook == NULL)
@@ -32,7 +33,7 @@ int saveData(PhoneBook* array, int count, char file[])
     return 1;
 }
 
-char* findNumberByName(PhoneBook* array, char name[], const int count)
+const char* findNumberByName(const PhoneBook* array, const char name[], const int count)
 {
     for (int i = 0; i < count; ++i)
     {
@@ -41,10 +42,10 @@ char* findNumberByName(PhoneBook* array, char name[], const int count)
             return array[i].number;
         }
     }
-    return "Nothing found";
+    return NULL;
 }
 
-char* findNameByNumber(PhoneBook* array, char number[], const int count)
+const char* findNameByNumber(const PhoneBook* array, const char number[], const int count)
 {
     for (int i = 0; i < count; ++i)
     {
@@ -53,5 +54,5 @@ char* findNameByNumber(PhoneBook* array, char number[], const int count)
             return array[i].name;
         }
     }
-    return "Nothing found";
+    return NULL;
 }

@@ -19,10 +19,10 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="ActionsOnPhoneBook.c">
-      <Filter>Файлы ресурсов</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Tests.c">
-      <Filter>Файлы ресурсов</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -37,11 +37,11 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ActionsOnPhoneBook.h">
-      <Filter>Файлы ресурсов</Filter>
-    </ClInclude>
     <ClInclude Include="Tests.h">
-      <Filter>Файлы ресурсов</Filter>
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionsOnPhoneBook.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

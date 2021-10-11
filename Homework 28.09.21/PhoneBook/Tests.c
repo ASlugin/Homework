@@ -9,26 +9,26 @@ bool testForFindNumber()
     PhoneBook testArray[10];
     int count = 0;
     readInitialFile(testArray, &count, "FileTest.txt");
-    char nameForSearch[3][10] =
+    const char nameForSearch[3][10] =
     {
-        {'I', 'v', 'a', 'n', '\0'},
-        {'M', 'a', 's', 'h', 'a', '\0'},
-        {'V', 'a', 'n', 'y', 'a', '\0'}
+        {"Ivan"},
+        {"Masha"},
+        {"Vanya"}
     };
-    char resultSearch[3][15] =
+    const char resultSearch[2][15] =
     {
-        {'8', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'},
-        {'4', '5', '6', '7', '8', '9', '1', '2', '3', '0', '\0'},
-        {'N', 'o', 't', 'h', 'i', 'n', 'g', ' ', 'f', 'o', 'u', 'n', 'd', '\0'}
+        {"8123456789"},
+        {"4567891230"}
     };
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 2; ++i)
     {
         if (strcmp(findNumberByName(testArray, nameForSearch[i], count), resultSearch[i]) != 0)
         {
+            printf("HERE\n");
             return false;
         }
-    }
-    return true;
+    }    
+    return findNumberByName(testArray, nameForSearch[2], count) == NULL;
 }
 
 bool testForFindName()
@@ -36,26 +36,25 @@ bool testForFindName()
     PhoneBook testArray[10];
     int count = 0;
     readInitialFile(testArray, &count, "FileTest.txt");
-    char numberForSearch[3][15] =
+    const char numberForSearch[3][15] =
     {
-        {'8', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0'},
-        {'4', '5', '6', '7', '8', '9', '1', '2', '3', '0', '\0'},
-        {'4', '5', '6', '7', '9', '9', '1', '2', '3', '0', '\0'}
+        {"8123456789"},
+        {"4567891230"},
+        {"4567991230"}
     };
-    char resultSearch[3][15] =
+    const char resultSearch[2][15] =
     {
-        {'I', 'v', 'a', 'n', '\0'},
-        {'M', 'a', 's', 'h', 'a', '\0'},
-        {'N', 'o', 't', 'h', 'i', 'n', 'g', ' ', 'f', 'o', 'u', 'n', 'd', '\0'}
+        {"Ivan"},
+        {"Masha"}
     };
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 2; ++i)
     {
         if (strcmp(findNameByNumber(testArray, numberForSearch[i], count), resultSearch[i]) != 0)
         {
             return false;
         }
     }
-    return true;
+    return findNameByNumber(testArray, numberForSearch[2], count) == NULL;
 }
 
 bool testReadInitialFile()
@@ -63,19 +62,11 @@ bool testReadInitialFile()
     PhoneBook testArray[10];
     int count = 0;
     readInitialFile(testArray, &count, "FileTest.txt");
-    if (count != 3)
+    if (count != 3 || strcmp(testArray[0].name, "Ivan") != 0 || strcmp(testArray[1].name, "Vasya") != 0 || strcmp(testArray[2].name, "Masha") != 0)
     {
         return false;
     }
-    if (strcmp(testArray[0].name, "Ivan") != 0 || strcmp(testArray[1].name, "Vasya") != 0 || strcmp(testArray[2].name, "Masha") != 0)
-    {
-        return false;
-    }
-    if (strcmp(testArray[0].number, "8123456789") != 0 || strcmp(testArray[1].number, "987654321") != 0 || strcmp(testArray[2].number, "4567891230") != 0)
-    {
-        return false;
-    }
-    return true;
+    return strcmp(testArray[0].number, "8123456789") == 0 && strcmp(testArray[1].number, "987654321") == 0 && strcmp(testArray[2].number, "4567891230") == 0;
 }
 
 bool testSaveData()
@@ -90,21 +81,13 @@ bool testSaveData()
     PhoneBook resultArray[10];
     int resultCount = 0;
     readInitialFile(resultArray, &resultCount, "EmptyFileForTestSaveData.txt");
-    if (resultCount != 3)
-    {
-        return false;
-    }
-    if (strcmp(resultArray[0].name, "Ivan") != 0 || strcmp(resultArray[1].name, "Vasya") != 0 || strcmp(resultArray[2].name, "Masha") != 0)
-    {
-        return false;
-    }
-    if (strcmp(resultArray[0].number, "8123456789") != 0 || strcmp(resultArray[1].number, "987654321") != 0 || strcmp(resultArray[2].number, "4567891230") != 0)
+    if (resultCount != 3 || strcmp(resultArray[0].name, "Ivan") != 0 || strcmp(resultArray[1].name, "Vasya") != 0 || strcmp(resultArray[2].name, "Masha") != 0)
     {
         return false;
     }
     FILE* emptyFile = fopen("EmptyFileForTestSaveData.txt", "w");
     fclose(emptyFile);
-    return true;
+    return strcmp(resultArray[0].number, "8123456789") == 0 && strcmp(resultArray[1].number, "987654321") == 0 && strcmp(resultArray[2].number, "4567891230") == 0;
 }
 
 bool tests()
