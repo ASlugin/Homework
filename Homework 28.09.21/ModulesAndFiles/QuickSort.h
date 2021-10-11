@@ -1,4 +1,4 @@
 #pragma once
 
-int partition(int *array, int left, int right);
+//sorts array from 'left' element to 'right' element
 void quickSort(int *array, int left, int right);

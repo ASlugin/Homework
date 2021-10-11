@@ -1,3 +1,5 @@
+#include "QuickSort.h"
+
 int partition(int *array, int left, int right)
 {
     const int pivot = array[right];

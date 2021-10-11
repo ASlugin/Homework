@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include "Tests.h"
 
 bool tests()
 {
