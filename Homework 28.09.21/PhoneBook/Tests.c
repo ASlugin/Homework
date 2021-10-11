@@ -24,7 +24,6 @@ bool testForFindNumber()
     {
         if (strcmp(findNumberByName(testArray, nameForSearch[i], count), resultSearch[i]) != 0)
         {
-            printf("HERE\n");
             return false;
         }
     }    
