@@ -2,5 +2,5 @@
 
 #include <stdbool.h>
 
-//return true if all tests succed
+// Return true if all tests succed
 bool tests();

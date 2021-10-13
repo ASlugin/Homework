@@ -12,7 +12,7 @@ void readInitialFile(PhoneBook* array, int* count, const char file[])
     }
     while (!feof(book))
     {
-        fscanf(book, "%s %s\n", array[(*count)].name, array[(*count)].number);
+        fscanf(book, "%s %s\n", array[*count].name, array[*count].number);
         (*count)++;
     }
     fclose(book);

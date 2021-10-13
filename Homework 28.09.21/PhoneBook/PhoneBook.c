@@ -23,7 +23,6 @@ int main()
     printf("%s", "4 - find name by number phone\n");
     printf("%s", "5 - save actual data to the file\n");
 
-
     while (true)
     {
         int code = -1;
