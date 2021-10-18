@@ -1,46 +1,27 @@
-﻿#include <stdio.h>
-#include <stdlib.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 
 int main()
 {
-    FILE *file = fopen("file.txt", "r");
+    FILE* file = fopen("file.txt", "r");
     if (file == NULL)
     {
-        printf("%s", "File not found");
+        printf("%s", "File not found!");
         return 0;
     }
-
-    int position = 0;
-    char *string = calloc(100, sizeof(char));
-    if (string == NULL)
+    char prevElement = 0;
+    fscanf(file, "%c", &prevElement);
+    printf("%c", prevElement);
+    while (!(feof(file)))
     {
-        printf("%s", "Allocation error");
-        return 0;
-    }
-    int readBytes = fscanf(file, "%c", &string[position]);
-    if (readBytes < 0)
-    {
-        printf("%s", "Error");
-        return 0;
-    }
-    position++;
-
-    while (!feof(file))
-    {
-        readBytes = fscanf(file, "%c", &string[position]);
-        if (readBytes == NULL)
+        char element = 0;
+        fscanf(file, "%c", &element);
+        if (prevElement != element)
         {
-            printf("%s", "Error");
-            return 0;
+            printf("%c", element);
         }
-        if (string[position - 1] != string[position])
-        {
-            position++;
-        }
+        prevElement = element;
     }
-
-    printf("%s", string);
     fclose(file);
-    free(string);
     return 0;
 }
