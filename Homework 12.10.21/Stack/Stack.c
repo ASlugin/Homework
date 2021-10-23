@@ -1,23 +1,30 @@
 #include "Stack.h"
+#include <stdlib.h>
 
-StackElement* push(StackElement* head, int number)
+void push(StackElement** head, int number)
 {
     StackElement* newStackElement = calloc(1, sizeof(StackElement));
     if (newStackElement == NULL)
     {
-        return NULL;
+        return;
     }
     newStackElement->value = number;
-    newStackElement->next = head;
-    return newStackElement;
+    newStackElement->next = *head;
+    *head = newStackElement;
 }
 
-int pop(StackElement** head)
+int pop(StackElement** head, bool* success)
 {
-    int value = (*head)->value;
+    if (*head == NULL || head == NULL)
+    {
+        *success = false;
+        return 0;
+    }
+    const int value = (*head)->value;
     StackElement* temp = *head;
     *head = (*head)->next;
     free(temp);
+    *success = true;
     return value;
 }
 
@@ -30,6 +37,7 @@ void deleteStack(StackElement** head)
 {
     while (!isEmpty(*head))
     {
-        pop(head);
+        bool temp = true;
+        int value = pop(head, &temp);
     }
 }

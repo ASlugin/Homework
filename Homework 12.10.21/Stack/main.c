@@ -1,13 +1,14 @@
 ﻿#include <stdio.h>
+#include <stdlib.h>
 #include "Stack.h"
 #include "Tests.h"
 
 int main()
 {
-    if (!tests())
+    if (!areTestsPassing())
     {
-        printf("%s", "Tests is failed!");
-        return 0;
+        printf("%s", "Tests failed!");
+        return -1;
     }
 
     StackElement* head = NULL;
@@ -16,38 +17,34 @@ int main()
         printf("%s\n", "Stack is empty");
     }
 
-    head = push(head, 10);
-    if (head == NULL)
-    {
-        printf("%s\n", "Allocation error");
-        return 0;
-    }
-    head = push(head, 15);
-    if (head == NULL)
-    {
-        printf("%s\n", "Allocation error");
-        return 0;
-    }
-    head = push(head, 30);
-    if (head == NULL)
-    {
-        printf("%s\n", "Allocation error");
-        return 0;
-    }
+    push(&head, 10);
+    push(&head, 15);
+    push(&head, 30);
 
-    if (!isEmpty(head))
+    bool successPop = true;
+    int value = pop(&head, &successPop);
+    if (!successPop)
     {
-        printf("%d\n", pop(&head));
+        printf("%s\n", "Pop error. Stack is empty");
     }
-    if (!isEmpty(head))
+    else
     {
-        printf("%d\n", pop(&head));
+        printf("%d\n", value);
     }
-
+    value = pop(&head, &successPop);
+    if (!successPop)
+    {
+        printf("%s\n", "Pop error. Stack is empty");
+    }
+    else
+    {
+        printf("%d\n", value);
+    }
+ 
     deleteStack(&head);
     if (isEmpty(head))
     {
-        printf("%s\n", "Stack is empty");
+        printf("%s", "Stack is empty");
     }
     return 0;
 }
