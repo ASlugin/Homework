@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "Tests.h"
 #include "Stack.h"
 
@@ -8,7 +9,7 @@ bool testsPushAndPop()
     int arrayElements[SIZE] = {3, 14, -9};
     for (int i = 0; i < SIZE; ++i)
     {
-        head = push(head, arrayElements[i]);
+        push(&head, arrayElements[i]);
         if (head == NULL)
         {
             deleteStack(&head);
@@ -22,7 +23,8 @@ bool testsPushAndPop()
         {
             return false;
         }
-        if (pop(&head) != arrayElements[i])
+        bool successPop = true;
+        if (pop(&head, &successPop) != arrayElements[i] || !successPop)
         {
             deleteStack(&head);
             return false;
@@ -39,7 +41,7 @@ bool testIsEmpty()
     {
         return false;
     }
-    head = push(head, 9);
+    push(&head, 9);
     if (isEmpty(head))
     {
         return false;
@@ -54,7 +56,7 @@ bool testDeletedStack()
     int arrayElements[SIZE] = {3, 14, -9};
     for (int i = 0; i < SIZE; ++i)
     {
-        head = push(head, arrayElements[i]);
+        push(&head, arrayElements[i]);
         if (head == NULL)
         {
             deleteStack(&head);
@@ -62,14 +64,10 @@ bool testDeletedStack()
         }
     }
     deleteStack(&head);
-    if (head != NULL)
-    {
-        return false;
-    }
-    return true;
+    return head == NULL;
 }
 
-bool tests()
+bool areTestsPassing()
 {
     return testsPushAndPop() && testIsEmpty() && testDeletedStack();
 }
