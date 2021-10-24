@@ -8,7 +8,7 @@ bool isAcceptableSymbol(const char element)
     return element >= '0' && element <= '9' || element == '+' || element == '-' || element == '*' || element == '/' || element == ' ';
 }
 
-// If successful, return result calculating,
+// If successfully, return result calculating,
 // else "success" is false and return error code:
 // -1 - stack error
 // -2 - entered not digit and not operation
@@ -105,8 +105,6 @@ int calculate(const char string[], bool* success)
     *success = true;
     return result;
 }
-
-
 
 bool areTestsPassing()
 {
