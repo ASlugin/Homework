@@ -9,10 +9,10 @@ typedef struct StackElement
     struct StackElement* next;
 } StackElement;
 
-// Adds new element to stack
-void push(StackElement** head, int number);
+// Adds new element to stack. If successful, then "success" is true, else false
+void push(StackElement** head, int number, bool* success);
 
-// Returns value of top element of stack, if stack is empty returns 0 and writes false to "success"
+// Returns value of top element of stack. If successful, then "success" is true, else false and return 0
 int pop(StackElement** head, bool* success);
 
 // Returns true if stack is empty

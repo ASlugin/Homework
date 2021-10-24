@@ -17,9 +17,25 @@ int main()
         printf("%s\n", "Stack is empty");
     }
 
-    push(&head, 10);
-    push(&head, 15);
-    push(&head, 30);
+    bool successPush = true;
+    push(&head, 10, &successPush);
+    if (!successPush)
+    {
+        printf("%s", "Push: allocation error");
+        return -1;
+    }
+    push(&head, 15, &successPush);
+    if (!successPush)
+    {
+        printf("%s", "Push: allocation error");
+        return -1;
+    }
+    push(&head, 30, &successPush);
+    if (!successPush)
+    {
+        printf("%s", "Push: allocation error");
+        return -1;
+    }
 
     bool successPop = true;
     int value = pop(&head, &successPop);
