@@ -3,8 +3,15 @@
 #include <stdbool.h>
 #include "../Stack/Stack.h"
 
-int calc(StackElement** head, const int element)
+int calculate(const char string[])
 {
+    const int length = strlen(string);
+    for (int i = 0; i < length; ++i)
+    {
+
+    }
+
+
     if (element >= '0' && element <= '9')
     {
         int number = element - '0';
@@ -48,7 +55,7 @@ int calc(StackElement** head, const int element)
     *head = push(*head, number);
     return 0;
 }
-
+/*
 bool tests()
 {
     #define AMOUNT 3
@@ -86,18 +93,20 @@ bool tests()
 
     deleteStack(&headTest);
     return true;
-}
+}*/
 
 int main()
 {
-    if (!tests())
+    /*if (!tests())
     {
         printf("%s", "Tests is failed!");
         return 0;
-    }
-
-    StackElement* head = NULL;
-    printf("%s", "Enter expression in postfix form: ");
+    }*/
+    #define SIZE 300
+    printf("%s%d%s", "Enter expression in postfix form less then ", SIZE, "characters: ");
+    char string[SIZE] = "\0";
+    gets_s(string, SIZE);
+/*
     int element = getchar();
     while (element != '\n')
     {
@@ -121,7 +130,8 @@ int main()
         return 0;
     }
     printf("%s %d", "Result:", result);
-
     deleteStack(&head);
+*/
+
     return 0;
 }
