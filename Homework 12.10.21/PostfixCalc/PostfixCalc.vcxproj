@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClCompile Include="..\Stack\Stack.c" />
     <ClCompile Include="PostfixCalc.c">
-      <SDLCheck Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</SDLCheck>
+      <SDLCheck Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</SDLCheck>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
