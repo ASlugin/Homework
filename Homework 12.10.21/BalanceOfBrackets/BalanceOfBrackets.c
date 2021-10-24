@@ -8,19 +8,17 @@ bool isBracket(const char symbol)
     return symbol == '(' || symbol == ')' || symbol == '[' || symbol == ']' || symbol == '{' || symbol == '}';
 }
 
-bool inCorrectBrackets(const char prevElement, const char element)
-{
-    return prevElement == '(' && element == ']' || prevElement == '(' && element == '}' ||
-           prevElement == '[' && element == '}' || prevElement == '[' && element == ')' ||
-           prevElement == '{' && element == ']' || prevElement == '{' && element == ')';
-}
-
-bool CorrectBrackets(const char prevElement, const char element)
+bool correctBrackets(const char prevElement, const char element)
 {
     return prevElement == '(' && element == ')' || prevElement == '[' && element == ']' || prevElement == '{' && element == '}';
 }
 
-bool checkBalanceBrackets(const char string[])
+bool isOpeningBracket(const char element)
+{
+    return element == '(' || element == '[' || element == '{';
+}
+
+bool areBracketsBalanced(const char string[])
 {
     const int length = strlen(string);
     StackElement* head = NULL;
@@ -28,24 +26,32 @@ bool checkBalanceBrackets(const char string[])
     {
         if (isBracket(string[i]))
         {
-            if (!isEmpty(head))
+            if (isOpeningBracket(string[i]) || isEmpty(head))
             {
-                const char prevElement = pop(&head);
-                if (inCorrectBrackets(prevElement, string[i]))
+                bool successPush = true;
+                push(&head, string[i], &successPush);
+                if (!successPush)
                 {
                     deleteStack(&head);
                     return false;
                 }
-                else if (!CorrectBrackets(prevElement, string[i]))
-                {
-                    head = push(head, prevElement);
-                    head = push(head, string[i]);
-                }
             }
             else
             {
-                head = push(head, string[i]);
+                bool successPop = true;
+                const char prevElement = pop(&head, &successPop);
+                if (!successPop)
+                {
+                    deleteStack(&head);
+                    return false;
+                }
+                if (!correctBrackets(prevElement, string[i]))
+                {
+                    deleteStack(&head);
+                    return false;
+                }
             }
+            
         }
     }
     if (!isEmpty(head))
@@ -53,18 +59,19 @@ bool checkBalanceBrackets(const char string[])
         deleteStack(&head);
         return false;
     }
-    deleteStack(&head);
+
     return true;
 }
 
-bool tests()
+
+bool areTestsPassing()
 {
-    #define AMOUNT 5
-    const char stringTest[AMOUNT][20] = {"([qwe]{(rty)})", "ab[{]c}d", "{)()(}", "(([])[])", "[({}())[]"};
-    const bool result[AMOUNT] = {true, false, false, true, false};
+    #define AMOUNT 6
+    const char stringTest[AMOUNT][20] = {"([qwe]{(rty)})", "ab[{]c}d", "{)()(}", "(([])[])", "[({}())[]", "["};
+    const bool result[AMOUNT] = {true, false, false, true, false, false};
     for (int i = 0; i < AMOUNT; ++i)
     {
-        if (checkBalanceBrackets(stringTest[i]) != result[i])
+        if (areBracketsBalanced(stringTest[i]) != result[i])
         {
             return false;
         }
@@ -74,10 +81,10 @@ bool tests()
 
 int main()
 {
-   if (!tests())
+   if (!areTestsPassing())
     {
         printf("%s", "Tests is failed!");
-        return 0;
+        return -1;
     }
 
     #define SIZE 300
@@ -85,11 +92,11 @@ int main()
     char string[SIZE] = "\0";
     gets_s(string, SIZE);
 
-    if (checkBalanceBrackets(string))
+    if (!areBracketsBalanced(string))
     {
-        printf("%s", "String is correct");
-        return 0;
+        printf("%s", "String is not correct");
+        return -1;
     }
-    printf("%s", "String is not correct");
+    printf("%s", "String is correct");
     return 0;
 }
