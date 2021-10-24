@@ -9,8 +9,9 @@ bool testsPushAndPop()
     int arrayElements[SIZE] = {3, 14, -9};
     for (int i = 0; i < SIZE; ++i)
     {
-        push(&head, arrayElements[i]);
-        if (head == NULL)
+        bool successPush = true;
+        push(&head, arrayElements[i], &successPush);
+        if (!successPush || head == NULL)
         {
             deleteStack(&head);
             return false;
@@ -39,11 +40,14 @@ bool testIsEmpty()
     StackElement* head = NULL;
     if (!isEmpty(head))
     {
+        deleteStack(&head);
         return false;
     }
-    push(&head, 9);
-    if (isEmpty(head))
+    bool successPush = true;
+    push(&head, 9, &successPush);
+    if (!successPush || isEmpty(head))
     {
+        deleteStack(&head);
         return false;
     }
     deleteStack(&head);
@@ -56,8 +60,9 @@ bool testDeletedStack()
     int arrayElements[SIZE] = {3, 14, -9};
     for (int i = 0; i < SIZE; ++i)
     {
-        push(&head, arrayElements[i]);
-        if (head == NULL)
+        bool successPush = true;
+        push(&head, arrayElements[i], &successPush);
+        if (!successPush || head == NULL)
         {
             deleteStack(&head);
             return false;

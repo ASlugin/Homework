@@ -1,16 +1,18 @@
 #include "Stack.h"
 #include <stdlib.h>
 
-void push(StackElement** head, int number)
+void push(StackElement** head, int number, bool* success)
 {
     StackElement* newStackElement = calloc(1, sizeof(StackElement));
     if (newStackElement == NULL)
     {
+        *success = false;
         return;
     }
     newStackElement->value = number;
     newStackElement->next = *head;
     *head = newStackElement;
+    *success = true;
 }
 
 int pop(StackElement** head, bool* success)
