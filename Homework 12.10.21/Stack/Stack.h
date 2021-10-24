@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stdlib.h>
 #include <stdbool.h>
 
 // Structure for stack elements
@@ -10,11 +9,11 @@ typedef struct StackElement
     struct StackElement* next;
 } StackElement;
 
-// Returns pointer to new element in stack, if allocation is not successful it returns NULL
-StackElement* push(StackElement* head, int number);
+// Adds new element to stack. If successful, then "success" is true, else false
+void push(StackElement** head, int number, bool* success);
 
-// Returns value of top element of stack
-int pop(StackElement** head);
+// Returns value of top element of stack. If successful, then "success" is true, else false and return 0
+int pop(StackElement** head, bool* success);
 
 // Returns true if stack is empty
 bool isEmpty(StackElement* head);

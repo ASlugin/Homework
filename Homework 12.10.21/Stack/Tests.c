@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "Tests.h"
 #include "Stack.h"
 
@@ -8,8 +9,9 @@ bool testsPushAndPop()
     int arrayElements[SIZE] = {3, 14, -9};
     for (int i = 0; i < SIZE; ++i)
     {
-        head = push(head, arrayElements[i]);
-        if (head == NULL)
+        bool successPush = true;
+        push(&head, arrayElements[i], &successPush);
+        if (!successPush || head == NULL)
         {
             deleteStack(&head);
             return false;
@@ -22,7 +24,8 @@ bool testsPushAndPop()
         {
             return false;
         }
-        if (pop(&head) != arrayElements[i])
+        bool successPop = true;
+        if (pop(&head, &successPop) != arrayElements[i] || !successPop)
         {
             deleteStack(&head);
             return false;
@@ -37,11 +40,14 @@ bool testIsEmpty()
     StackElement* head = NULL;
     if (!isEmpty(head))
     {
+        deleteStack(&head);
         return false;
     }
-    head = push(head, 9);
-    if (isEmpty(head))
+    bool successPush = true;
+    push(&head, 9, &successPush);
+    if (!successPush || isEmpty(head))
     {
+        deleteStack(&head);
         return false;
     }
     deleteStack(&head);
@@ -54,22 +60,19 @@ bool testDeletedStack()
     int arrayElements[SIZE] = {3, 14, -9};
     for (int i = 0; i < SIZE; ++i)
     {
-        head = push(head, arrayElements[i]);
-        if (head == NULL)
+        bool successPush = true;
+        push(&head, arrayElements[i], &successPush);
+        if (!successPush || head == NULL)
         {
             deleteStack(&head);
             return false;
         }
     }
     deleteStack(&head);
-    if (head != NULL)
-    {
-        return false;
-    }
-    return true;
+    return head == NULL;
 }
 
-bool tests()
+bool areTestsPassing()
 {
     return testsPushAndPop() && testIsEmpty() && testDeletedStack();
 }

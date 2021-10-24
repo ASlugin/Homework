@@ -3,4 +3,4 @@
 #include <stdbool.h>
 
 // Return true is all tests succeed
-bool tests();
+bool areTestsPassing();
