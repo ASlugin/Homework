@@ -63,7 +63,6 @@ bool areBracketsBalanced(const char string[])
     return true;
 }
 
-
 bool areTestsPassing()
 {
     #define AMOUNT 6
