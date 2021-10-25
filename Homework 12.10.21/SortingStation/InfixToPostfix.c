@@ -23,15 +23,28 @@ bool isPriorityOfPrevHigher(const char prevElement)
     return prevElement == '*' || prevElement == '/';
 }
 
-int fromInfixToPostfix(const char string[], char output[])
+bool addToOutput(const char element, char output[], int* index, const int maxLength)
 {
-    const int lenght = strlen(string);
+    if (*index + 1 >= maxLength)
+    {
+        return false;
+    }
+    output[*index] = element;
+    ++*index;
+    output[*index] = ' ';
+    ++*index;
+    return true;
+}
+
+int fromInfixToPostfix(const char string[], char output[], const int maxLength)
+{
+    const int length = strlen(string);
     int index = 0;
     StackElement* head = NULL;
     bool successPush = true;
     bool successPop = true;
 
-    for (int i = 0; i < lenght; ++i)
+    for (int i = 0; i < length; ++i)
     {
         if (!isAcceptableSymbol(string[i]))
         {
@@ -40,10 +53,11 @@ int fromInfixToPostfix(const char string[], char output[])
         }
         if (isDigit(string[i]))
         {
-            output[index] = string[i];
-            ++index;
-            output[index] = ' ';
-            ++index;
+            if (!addToOutput(string[i], output, &index, maxLength))
+            {
+                deleteStack(&head);
+                return -3;
+            }
         }
         if (string[i] == '(')
         {
@@ -64,10 +78,11 @@ int fromInfixToPostfix(const char string[], char output[])
             }
             while (prevElement != '(')
             {
-                output[index] = prevElement;
-                ++index;
-                output[index] = ' ';
-                ++index;
+                if (!addToOutput(prevElement, output, &index, maxLength))
+                {
+                    deleteStack(&head);
+                    return -3;
+                }
                 prevElement = pop(&head, &successPop);
                 if (!successPop)
                 {
@@ -112,10 +127,11 @@ int fromInfixToPostfix(const char string[], char output[])
                 }
                 else
                 {
-                    output[index] = prevElement;
-                    ++index;
-                    output[index] = ' ';
-                    ++index;
+                    if (!addToOutput(prevElement, output, &index, maxLength))
+                    {
+                        deleteStack(&head);
+                        return -3;
+                    }
                     push(&head, string[i], &successPush);
                     if (!successPush)
                     {
@@ -135,10 +151,11 @@ int fromInfixToPostfix(const char string[], char output[])
             deleteStack(&head);
             return -2;
         }
-        output[index] = element;
-        ++index;
-        output[index] = ' ';
-        ++index;
+        if (!addToOutput(element, output, &index, maxLength))
+        {
+            deleteStack(&head);
+            return -3;
+        }
     }
     output[index - 1] = '\0';
     deleteStack(&head);

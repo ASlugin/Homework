@@ -5,14 +5,15 @@
 bool areTestsPassing()
 {
     #define AMOUNT 4
-    const char enteredString[AMOUNT][30] =
+    #define MAXLENGTH 30
+    const char enteredString[AMOUNT][MAXLENGTH] =
     {
         "(3+5)*9 - 8*2",
         "(1 + 1) * 2",
         "(5 + 6) * (4 - 7) / 3",
         "(1 + 2) * 3 / 9"
     };
-    const char resultTest[AMOUNT][30] = 
+    const char resultTest[AMOUNT][MAXLENGTH] =
     {
         "3 5 + 9 * 8 2 * -",
         "1 1 + 2 *",
@@ -22,8 +23,8 @@ bool areTestsPassing()
     
     for (int i = 0; i < AMOUNT; ++i)
     {
-        char output[30] = "\0";
-        if (fromInfixToPostfix(enteredString[i], output) != 0)
+        char output[MAXLENGTH] = "\0";
+        if (fromInfixToPostfix(enteredString[i], output, MAXLENGTH) != 0)
         {
             return false;
         }

@@ -5,4 +5,5 @@
 //  0 - successfully
 // -1 - unacceptable characters
 // -2 - stack error
-int fromInfixToPostfix(const char string[], char output[]);
+// -3 - output string length exceeded
+int fromInfixToPostfix(const char string[], char output[], const int maxLength);
