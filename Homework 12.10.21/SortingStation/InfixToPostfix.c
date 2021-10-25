@@ -18,9 +18,9 @@ bool isAcceptableSymbol(const char element)
     return isDigit(element) || isOperation(element) || element == '(' || element == ')' || element == ' ';
 }
 
-bool isPriorityOfPrevHigher(const char prevElement)
+bool isPriorityOfPrevHigher(const char prevElement, const char element)
 {
-    return prevElement == '*' || prevElement == '/';
+    return prevElement == '*' || prevElement == '/' || prevElement == '-' && element == '+';
 }
 
 bool addToOutput(const char element, char output[], int* index, const int maxLength)
@@ -110,7 +110,7 @@ int fromInfixToPostfix(const char string[], char output[], const int maxLength)
                     deleteStack(&head);
                     return -2;
                 }
-                if (prevElement == '(' || !isPriorityOfPrevHigher(prevElement))
+                if (prevElement == '(' || !isPriorityOfPrevHigher(prevElement, string[i]))
                 {
                     push(&head, prevElement, &successPush);
                     if (!successPush)

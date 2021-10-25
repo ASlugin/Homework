@@ -20,7 +20,7 @@ int main()
     {
         case 0:
         {
-            printf("%s%s", "Result: ", result);
+            printf("Result: %s", result);
             return 0;
         }
         case -1:
