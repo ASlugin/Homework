@@ -26,6 +26,11 @@ bool areBracketsBalanced(const char string[])
     {
         if (isBracket(string[i]))
         {
+            if (!isOpeningBracket(string[i]) && isEmpty(head))
+            {
+                deleteStack(&head);
+                return false;
+            }
             if (isOpeningBracket(string[i]) || isEmpty(head))
             {
                 bool successPush = true;
@@ -51,7 +56,6 @@ bool areBracketsBalanced(const char string[])
                     return false;
                 }
             }
-            
         }
     }
     if (!isEmpty(head))
@@ -82,12 +86,12 @@ int main()
 {
    if (!areTestsPassing())
     {
-        printf("%s", "Tests is failed!");
+        printf("%s", "Tests failed!");
         return -1;
     }
 
     #define SIZE 300
-    printf("%s%d%s", "Enter string less than ", SIZE, " characters: ");
+    printf("Enter string less than %d characters: ", SIZE);
     char string[SIZE] = "\0";
     gets_s(string, SIZE);
 
