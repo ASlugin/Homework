@@ -43,7 +43,7 @@ bool isOneElementLeft(List* list);
 // If "addWhichAdd" doesn't point to element and list is not empty, returns false.
 bool add(List* list, Position* afterWhichAdd, int value);
 
-// Deletes element of list pointed by "index"
+// Deletes element of list pointed by "index" and puts pointer to next element in "index" Position
 // If Position "index" or List "list" doesn't exist or list is empty or "index" doesn't point to element, returns false.
 bool deleteElement(List* list, Position* index);
 

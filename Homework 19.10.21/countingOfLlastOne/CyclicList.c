@@ -10,6 +10,7 @@ typedef struct ListElement
 typedef struct List
 {
     ListElement* head;
+    ListElement* last;
 } List;
 
 typedef struct Position
@@ -69,11 +70,7 @@ Position* last(List* list, Position* index)
         index->position = NULL;
         return index;
     }
-    index->position = list->head;
-    while (index->position->next != list->head)
-    {
-        index->position = index->position->next;
-    }
+    index->position = list->last;
     return index;
 }
 
@@ -111,10 +108,15 @@ bool add(List* list, Position* afterWhichAdd, int value)
     if (isEmpty(list))
     {
         list->head = newElement;
+        list->last = newElement;
         newElement->next = newElement;
         return true;
     }
     newElement->next = afterWhichAdd->position->next;
+    if (afterWhichAdd->position == list->last)
+    {
+        list->last = newElement;
+    }
     afterWhichAdd->position->next = newElement;
     return true;
 }
@@ -129,28 +131,28 @@ bool deleteElement(List* list, Position* index)
     {
         free(index->position);
         list->head = NULL;
+        list->last = NULL;
         index->position = NULL;
         return true;
     }
 
-    Position* prevElement = createPosition();
-    if (prevElement == NULL)
+    ListElement* prevElement = list->head;
+    while (prevElement->next != index->position)
     {
-        return false;
+        prevElement = prevElement->next;
     }
-    prevElement->position = list->head;
-    while (prevElement->position->next != index->position)
-    {
-        prevElement = next(prevElement);
-    }
-    prevElement->position->next = index->position->next;
+    prevElement->next = index->position->next;
+
     if (index->position == list->head)
     {
         list->head = index->position->next;
     }
+    if (index->position == list->last)
+    {
+        list->last = prevElement;
+    }
     free(index->position);
-    index->position = NULL;
-    free(prevElement);
+    index->position = prevElement->next;
     return true;
 }
 
@@ -158,18 +160,13 @@ void deleteList(List** list)
 {
     if (!isEmpty(*list))
     {
-        Position* elementForDelete = createPosition();
-        if (elementForDelete == NULL)
+        ListElement* elementForDelete = (*list)->head;
+        while (elementForDelete != (*list)->last)
         {
-            return;
+            ListElement* nextForDelete = elementForDelete->next;
+            free(elementForDelete);
+            elementForDelete = nextForDelete;
         }
-        while (!isOneElementLeft(*list))
-        {
-            elementForDelete->position = (*list)->head;
-            deleteElement(*list, elementForDelete);
-        }
-        elementForDelete->position = (*list)->head;
-        free(elementForDelete->position);
         free(elementForDelete);
     }
     free(*list);

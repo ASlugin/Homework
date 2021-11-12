@@ -2,46 +2,10 @@
 #include "CyclicList.h"
 #include <stddef.h>
 
-bool areTestCyclicListPassing()
+#define SIZE 5
+
+bool testDelelete(List* testList, Position* index, int array[])
 {
-    List* testList = createList();
-    if (testList == NULL || !isEmpty(testList))
-    {
-        return false;
-    }
-    Position* index = createPosition();
-    if (index == NULL)
-    {
-        deleteList(&testList);
-        return false;
-    }
-
-    #define SIZE 5
-    int array[SIZE] = {4, 9, 7, 5, 3};
-
-    for (int i = 0; i < SIZE; ++i)
-    {
-        index = last(testList, index);
-        if (!add(testList, index, array[i]))
-        {
-            printf("HERE %d ", i);
-            deleteList(&testList);
-            deletePosition(&index);
-            return false;
-        }
-    }
-    index = first(testList, index);
-    for (int i = 0; i < SIZE; ++i)
-    {
-        if (get(index) != array[i])
-        {
-            deleteList(&testList);
-            deletePosition(&index);
-            return false;
-        }
-        index = next(index);
-    }
-    
     index = next(first(testList, index));
     if (!deleteElement(testList, index))
     {
@@ -96,4 +60,49 @@ bool areTestCyclicListPassing()
     deletePosition(&index);
     deleteList(&testList);
     return true;
+}
+
+bool testCreateAndAdd()
+{
+    List* testList = createList();
+    if (testList == NULL || !isEmpty(testList))
+    {
+        return false;
+    }
+    Position* index = createPosition();
+    if (index == NULL)
+    {
+        deleteList(&testList);
+        return false;
+    }
+
+    int array[SIZE] = {4, 9, 7, 5, 3};
+    for (int i = 0; i < SIZE; ++i)
+    {
+        index = last(testList, index);
+        if (!add(testList, index, array[i]))
+        {
+            deleteList(&testList);
+            deletePosition(&index);
+            return false;
+        }
+    }
+    index = first(testList, index);
+    for (int i = 0; i < SIZE; ++i)
+    {
+        if (get(index) != array[i])
+        {
+            deleteList(&testList);
+            deletePosition(&index);
+            return false;
+        }
+        index = next(index);
+    }
+    
+    return testDelelete(testList, index, array);
+}
+
+bool areTestCyclicListPassing()
+{
+    return testCreateAndAdd();
 }

@@ -43,23 +43,12 @@ int positionOfLatter(int n, int m)
             current = next(current);
         }
 
-        Position* temp = createPosition();
-        if (temp == NULL)
-        {
-            deleteList(&listOfWarriors);
-            deletePosition(&current);
-            return -1;
-        }
-        copyPosition(current, temp);
-        temp = next(temp);
         if (!deleteElement(listOfWarriors, current))
         {
             deleteList(&listOfWarriors);
             deletePosition(&current);
             return -1;
         }
-        copyPosition(temp, current);
-        deletePosition(&temp);
     }
 
     int result = get(current);
