@@ -14,6 +14,7 @@ List* createList();
 // Creates new Position. If allocation error, returns NULL.
 Position* createPosition();
 
+// Deletes position
 void deletePosition(Position** index);
 
 // Deletes list
