@@ -5,19 +5,8 @@
 #define AMOUNT 7
 #define SIZE 30
 
-bool testSortByName(void)
+bool areTestsPassing(void)
 {
-    List* listTest = readDataFromFile("InputTest.txt");
-    if (listTest == NULL)
-    {
-        return false;
-    }
-
-    if (!mergeSort(listTest, 0))
-    {
-        deleteList(&listTest);
-        return false;
-    }
     const char nameByName[AMOUNT][SIZE] =
     {
         "a",
@@ -38,38 +27,6 @@ bool testSortByName(void)
         "321",
         "123"
     };
-    for (int i = 0; i < AMOUNT; ++i)
-    {
-        char name[SIZE] = {"\0"};
-        char number[SIZE] = {"\0"};
-        if (!pop(listTest, name, number) || strcmp(name, nameByName[i]) != 0 || strcmp(number, numberByName[i]) != 0)
-        {
-            deleteList(&listTest);
-            return false;
-        }
-    }
-    if (!isEmpty(listTest))
-    {
-        deleteList(&listTest);
-        return false;
-    }
-    deleteList(&listTest);
-    return isEmpty(listTest);
-}
-
-bool testSortByNumber(void)
-{
-    List* listTest = readDataFromFile("InputTest.txt");
-    if (listTest == NULL)
-    {
-        return false;
-    }
-
-    if (!mergeSort(listTest, 1))
-    {
-        deleteList(&listTest);
-        return false;
-    }
     const char nameByNumber[AMOUNT][SIZE] =
     {
         "ba",
@@ -90,27 +47,37 @@ bool testSortByNumber(void)
         "9843",
         "987"
     };
-    for (int i = 0; i < AMOUNT; ++i)
+
+    for (SortBy key = name; key <= number; ++key)
     {
-        char name[SIZE] = {"\0"};
-        char number[SIZE] = {"\0"};
-        if (!pop(listTest, name, number) || strcmp(name, nameByNumber[i]) != 0 || strcmp(number, numberByNumber[i]) != 0)
+        List* listTest = readDataFromFile("InputTest.txt");
+        if (listTest == NULL)
+        {
+            return false;
+        }
+        if (!mergeSort(listTest, key))
         {
             deleteList(&listTest);
             return false;
         }
-    }
-    if (!isEmpty(listTest))
-    {
+
+        for (int i = 0; i < AMOUNT; ++i)
+        {
+            char nameTest[SIZE] = {'\0'};
+            char numberTest[SIZE] = {'\0'};
+            if (key == name && (!pop(listTest, nameTest, numberTest) || strcmp(nameTest, nameByName[i]) != 0 || strcmp(numberTest, numberByName[i]) != 0)
+                || key == number && (!pop(listTest, nameTest, numberTest) || strcmp(nameTest, nameByNumber[i]) != 0 || strcmp(numberTest, numberByNumber[i]) != 0))
+            {
+                deleteList(&listTest);
+                return false;
+            }
+        }
+        if (!isEmpty(listTest))
+        {
+            deleteList(&listTest);
+            return false;
+        }
         deleteList(&listTest);
-        return false;
     }
-
-    deleteList(&listTest);
-    return isEmpty(listTest);
-}
-
-bool areTestPassing(void)
-{
-    return testSortByNumber() && testSortByName();
+    return true;
 }

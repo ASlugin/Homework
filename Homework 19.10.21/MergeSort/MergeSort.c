@@ -18,11 +18,7 @@ bool moveOneElement(List* from, List* toHere)
     {
         return false;
     }
-    if (!add(toHere, name, number))
-    {
-        return false;
-    }
-    return true;
+    return add(toHere, name, number);
 }
 
 // Moves specified amount of elements from list "from" to list "toHere"
@@ -43,71 +39,53 @@ bool moveElements(List* from, List* toHere, const int amount)
     return true;
 }
 
-bool mergeLists(List* list, List* left, List* right, const int code)
+List* listForMoveElement(List* left, List* right, SortBy key)
 {
-    while (!isEmpty(left) || !isEmpty(right))
+    if (isEmpty(left))
     {
-        if (isEmpty(left) || isEmpty(right))
+        if (isEmpty(right))
         {
-            while (isEmpty(left) && !isEmpty(right))
-            {
-                if (!moveOneElement(right, list))
-                {
-                    return false;
-                }
-            }
-            while (isEmpty(right) && !isEmpty(left))
-            {
-                if (!moveOneElement(left, list))
-                {
-                    return false;
-                }
-            }
+            return NULL;
         }
         else
         {
-            if (code == 0)
-            {
-                if (strcmp(getName(left), getName(right)) <= 0)
-                {
-                    if (!moveOneElement(left, list))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    if (!moveOneElement(right, list))
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                if (strcmp(getNumber(left), getNumber(right)) <= 0)
-                {
-                    if (!moveOneElement(left, list))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    if (!moveOneElement(right, list))
-                    {
-                        return false;
-                    }
-                }
-            }
+            return right;
         }
+    }
+    else if (isEmpty(right))
+    {
+        return left;
+    }
+    else
+    {
+        if (key == name && strcmp(getName(left), getName(right)) <= 0 || key == number && strcmp(getNumber(left), getNumber(right)) <= 0)
+        {
+            return left;
+        }
+        else
+        {
+            return right;
+        }
+    }
+}
+
+bool mergeLists(List* list, List* left, List* right, SortBy key)
+{
+    List* listForMove = listForMoveElement(left, right, key);
+    while (listForMove != NULL)
+    {
+        if (!moveOneElement(listForMove, list))
+        {
+            return false;
+        }
+        listForMove = listForMoveElement(left, right, key);
     }
     return true;
 }
 
-bool mergeSort(List* list, const int code)
+bool mergeSort(List* list, SortBy key)
 {
-    if (code != 0 && code != 1)
+    if (key != name && key != number)
     {
         return false;
     }
@@ -140,14 +118,14 @@ bool mergeSort(List* list, const int code)
         return false;
     }
     
-    if (!mergeSort(left, code) || !mergeSort(right, code))
+    if (!mergeSort(left, key) || !mergeSort(right, key))
     {
         deleteList(&left);
         deleteList(&right);
         return false;
     }
 
-    if (!mergeLists(list, left, right, code))
+    if (!mergeLists(list, left, right, key))
     {
         deleteList(&left);
         deleteList(&right);

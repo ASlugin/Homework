@@ -2,7 +2,7 @@
 #include "List.h"
 #include <string.h>
 
-bool areTestListPassing(void)
+bool isTestListPassing(void)
 {
     List* listTest = createList();
     if (listTest == NULL)

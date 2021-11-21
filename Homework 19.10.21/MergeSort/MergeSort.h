@@ -3,6 +3,13 @@
 #include "List.h"
 #include <stdbool.h>
 
-// Sorts list by name, if code is 0, or by number phone, if code is 1
+// Enumeration to specify key by which the data should be sorted
+typedef enum SortBy
+{
+    name,
+    number
+} SortBy;
+
+// Sorts list by key
 // If not succesful, returns false, else, returns true
-bool mergeSort(List* list, const int code);
+bool mergeSort(List* list, SortBy key);

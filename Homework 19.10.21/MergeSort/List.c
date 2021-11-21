@@ -63,11 +63,6 @@ bool add(List* list, const char name[], const char number[])
         list->length++;
         return true;
     }
-    if (list->tail == NULL)
-    {
-        free(newElement);
-        return false;
-    }
     list->tail->next = newElement;
     list->tail = newElement;
     list->length++;
@@ -124,17 +119,20 @@ bool pop(List* list, char* name, char* number)
     return true;
 }
 
+void printListRecursive(ListElement* element)
+{
+    printf("%s - %s\n", element->name, element->number);
+    if (element->next != NULL)
+    {
+        printListRecursive(element->next);
+    }
+}
+
 void printList(List* list)
 {
-    while (!isEmpty(list))
+    if (!isEmpty(list))
     {
-        char name[SIZE] = {"\0"};
-        char number[SIZE] = {"\0"};
-        if (!pop(list, name, number))
-        {
-            return;
-        }
-        printf("%s - %s\n", name, number);
+        printListRecursive(list->head);
     }
 }
 

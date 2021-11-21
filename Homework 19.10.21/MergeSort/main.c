@@ -7,12 +7,12 @@
 
 int main(void)
 {
-    if (!areTestListPassing())
+    if (!isTestListPassing())
     {
         printf("Tests of list failed!");
         return -1;
     }
-    if (!areTestPassing())
+    if (!areTestsPassing())
     {
         printf("Tests failed!");
         return -1;
@@ -24,20 +24,20 @@ int main(void)
         return -1;
     }
     
-    int code = -1;
     printf("Sort by:\n");
     printf("0 - name\n");
     printf("1 - phone number\n");
     printf("Enter code: ");
-    scanf("%d", &code);
-    if (code != 0 && code != 1)
+    SortBy key = -1;
+    scanf("%d", &key);
+    if (key != name && key != number)
     {
         printf("Incorrect code");
         deleteList(&list);
         return -1;
     }
     
-    if (!mergeSort(list, code))
+    if (!mergeSort(list, key))
     {
         deleteList(&list);
         return -1;
