@@ -13,15 +13,15 @@ bool isEmpty(Tree* tree);
 // Deletes all elements of tree and puts to "tree" NULL
 void deleteTree(Tree** tree);
 
-// Returns value for specified key. If there is no such key, returns NULL.
+// Returns pointer to value for specified key without control. If there is no such key, returns NULL.
 char* getValueByKey(Tree* tree, const int key);
 
 // Returns true if tree contain key, else return false
 bool treeContainThisKey(Tree* tree, const int key);
 
 // Adds a value by the specified key to the tree. If such a key already exists, the value is replaced with a new one.
-// If not successfully, returns false
+// Accepts "value" without control. If not successfully, returns false.
 bool add(Tree* tree, const int key, const char value[]);
 
-// Returns node by key. If not successfully, returns false
+// Deletes node by key. If not successfully, returns false.
 bool deleteNodeByKey(Tree* tree, const int key);

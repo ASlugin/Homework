@@ -23,7 +23,7 @@ bool testTreeContainKey(Tree* treeTest, const int* arrayKey)
     return true;
 }
 
-bool areTestPassing()
+bool isTestPassing()
 {
     Tree* treeTest = createTree();
     if (treeTest == NULL || !isEmpty(treeTest))

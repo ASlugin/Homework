@@ -61,7 +61,7 @@ void deleteTree(Tree** tree)
     *tree = NULL;
 }
 
-Node* isInTree(Tree* tree, const int key)
+Node* searchNode(Tree* tree, const int key)
 {
     if (isEmpty(tree))
     {
@@ -88,7 +88,7 @@ Node* isInTree(Tree* tree, const int key)
 
 char* getValueByKey(Tree* tree, const int key)
 {
-    Node* nodeWithThisKey = isInTree(tree, key);
+    Node* nodeWithThisKey = searchNode(tree, key);
     if (nodeWithThisKey == NULL)
     {
         return NULL;
@@ -98,7 +98,7 @@ char* getValueByKey(Tree* tree, const int key)
 
 bool treeContainThisKey(Tree* tree, const int key)
 {
-    return isInTree(tree, key) != NULL;
+    return searchNode(tree, key) != NULL;
 }
 
 bool add(Tree* tree, const int key, const char value[])
@@ -108,7 +108,7 @@ bool add(Tree* tree, const int key, const char value[])
         return false;
     }
     
-    Node* newNode = isInTree(tree, key);
+    Node* newNode = searchNode(tree, key);
     if (newNode != NULL)
     {
         free(newNode->value);
@@ -168,17 +168,34 @@ bool add(Tree* tree, const int key, const char value[])
     return true;
 }
 
+void moveSonToParent(Node* nodeForDelete, Node* son)
+{
+    if (son != NULL)
+    {
+        son->parent = nodeForDelete->parent;
+    }
+
+    if (nodeForDelete == nodeForDelete->parent->leftSon)
+    {
+        nodeForDelete->parent->leftSon = son;
+    }
+    else
+    {
+        nodeForDelete->parent->rightSon = son;
+    }
+}
+
 bool deleteNode(Tree* tree, Node* nodeForDelete)
 {
     if (nodeForDelete->leftSon == NULL && nodeForDelete->rightSon == NULL)
     {
-        if (nodeForDelete == nodeForDelete->parent->leftSon)
+        if (nodeForDelete->parent != NULL)
         {
-            nodeForDelete->parent->leftSon = NULL;
+            moveSonToParent(nodeForDelete, NULL);
         }
         else
         {
-            nodeForDelete->parent->rightSon = NULL;
+            tree->root = NULL;
         }
         free(nodeForDelete->value);
         free(nodeForDelete);
@@ -189,15 +206,7 @@ bool deleteNode(Tree* tree, Node* nodeForDelete)
     {
         if (nodeForDelete->parent != NULL)
         {
-            nodeForDelete->rightSon->parent = nodeForDelete->parent;
-            if (nodeForDelete == nodeForDelete->parent->leftSon)
-            {
-                nodeForDelete->parent->leftSon = nodeForDelete->rightSon;
-            }
-            else
-            {
-                nodeForDelete->parent->rightSon = nodeForDelete->rightSon;
-            }
+            moveSonToParent(nodeForDelete, nodeForDelete->parent);
             free(nodeForDelete->value);
             free(nodeForDelete);
             return true;
@@ -215,15 +224,7 @@ bool deleteNode(Tree* tree, Node* nodeForDelete)
     {
         if (nodeForDelete->parent != NULL)
         {
-            nodeForDelete->leftSon->parent = nodeForDelete->parent;
-            if (nodeForDelete == nodeForDelete->parent->leftSon)
-            {
-                nodeForDelete->parent->leftSon = nodeForDelete->leftSon;
-            }
-            else
-            {
-                nodeForDelete->parent->rightSon = nodeForDelete->leftSon;
-            }
+            moveSonToParent(nodeForDelete, nodeForDelete->leftSon);
             free(nodeForDelete->value);
             free(nodeForDelete);
             return true;
@@ -257,7 +258,7 @@ bool deleteNode(Tree* tree, Node* nodeForDelete)
 
 bool deleteNodeByKey(Tree* tree, const int key)
 {
-    Node* nodeForDelete = isInTree(tree, key);
+    Node* nodeForDelete = searchNode(tree, key);
     if (nodeForDelete == NULL)
     {
         return true;

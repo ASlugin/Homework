@@ -7,7 +7,7 @@
 
 int main()
 {
-    if (!areTestPassing())
+    if (!isTestPassing())
     {
         printf("Tests failed!");
         return -1;
@@ -21,7 +21,7 @@ int main()
     printf("Commands for the dictionary:\n");
     printf("0 - Exit\n");
     printf("1 - Add value for given key to the dictionary. If such a key already exists, the value is replaced with a new one.\n");
-    printf("2 - Get the value for given key from the dictionary. If there is no such key, NULL is returned.\n");
+    printf("2 - Get the value for given key from the dictionary.\n");
     printf("3 - Check the presence given key in the dictionary.\n");
     printf("4 - Delete given key and its associated value from the dictionary.\n");
     
@@ -45,7 +45,7 @@ int main()
                 printf("Enter key: ");
                 scanf("%d", &key);
                 getchar();
-                char value[SIZE + 1] = {"\0"};
+                char value[SIZE + 1] = {'\0'};
                 printf("Enter value less than %d characters: ", SIZE);
                 gets_s(value, SIZE);
                 if (!add(dictionary, key, value))
@@ -61,6 +61,12 @@ int main()
             {
                 printf("Enter key: ");
                 scanf("%d", &key);
+                char* result = getValueByKey(dictionary, key);
+                if (result == NULL)
+                {
+                    printf("Key %d is not contained in dictionary\n", key);
+                    break;
+                }
                 printf("Value by key %d: %s\n", key, getValueByKey(dictionary, key));
                 break;
             }
