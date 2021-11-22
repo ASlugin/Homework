@@ -5,7 +5,7 @@
 
 int main()
 {
-    if (!areTestPassing())
+    if (!areTestsPassing())
     {
         printf("Test failed!");
         return -1;

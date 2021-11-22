@@ -32,12 +32,12 @@ bool isDigit(const char symbol)
     return symbol >= '0' && symbol <= '9';
 }
 
-bool isNegativeNumber(char* string, int* position)
+bool isNegativeNumber(const char* string, int* position)
 {
     return string[*position] == '-' && isDigit(string[*position + 1]);
 }
 
-int number(char* string, int* position, bool* success)
+int number(const char* string, int* position, bool* success)
 {
     char* stringForNumber = calloc(strlen(string), sizeof(char));
     if (stringForNumber == NULL)
@@ -68,9 +68,9 @@ int number(char* string, int* position, bool* success)
     return result;
 }
 
-Node* addNodeRecursive(char* string, int* position)
+Node* addNodeRecursive(const char* string, int* position)
 {
-    int length = strlen(string);
+    const int length = strlen(string);
     while ((*position) < length && !isOperator(string[*position]) && !isDigit(string[*position]))
     {
         (*position)++;
@@ -192,8 +192,8 @@ int calculateNode(Node* node)
     {
         return node->operand;
     }
-    int first = calculateNode(node->leftSon);
-    int second = calculateNode(node->rightSon);
+    const int first = calculateNode(node->leftSon);
+    const int second = calculateNode(node->rightSon);
     switch (node->operation)
     {
         case '+':

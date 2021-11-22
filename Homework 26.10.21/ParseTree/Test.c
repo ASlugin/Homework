@@ -2,7 +2,7 @@
 #include "Tree.h"
 #include <stddef.h>
 
-bool areTestPassing()
+bool areTestsPassing()
 {
     Tree* treeTest = createTreeAndReadFromFile("InputTest.txt");
     if (treeTest == NULL)
