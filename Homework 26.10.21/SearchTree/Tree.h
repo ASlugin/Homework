@@ -13,7 +13,8 @@ bool isEmpty(Tree* tree);
 // Deletes all elements of tree and puts to "tree" NULL
 void deleteTree(Tree** tree);
 
-// Returns pointer to value for specified key without control. If there is no such key, returns NULL.
+// Returns value for specified key. If there is no such key, returns NULL.
+// Does not transfer oweership to a caller
 char* getValueByKey(Tree* tree, const int key);
 
 // Returns true if tree contain key, else return false
