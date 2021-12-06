@@ -43,14 +43,7 @@ List* listForMoveElement(List* left, List* right, SortBy key)
 {
     if (isEmpty(left))
     {
-        if (isEmpty(right))
-        {
-            return NULL;
-        }
-        else
-        {
-            return right;
-        }
+        return isEmpty(right) ? NULL : right;
     }
     else if (isEmpty(right))
     {
@@ -58,14 +51,7 @@ List* listForMoveElement(List* left, List* right, SortBy key)
     }
     else
     {
-        if (key == name && strcmp(getName(left), getName(right)) <= 0 || key == number && strcmp(getNumber(left), getNumber(right)) <= 0)
-        {
-            return left;
-        }
-        else
-        {
-            return right;
-        }
+        return (key == name && strcmp(getName(left), getName(right)) <= 0 || key == number && strcmp(getNumber(left), getNumber(right)) <= 0) ? left : right;
     }
 }
 
