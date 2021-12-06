@@ -2,10 +2,11 @@
 #include "AVLtree.h"
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 typedef struct Node
 {
-    int key;
+    char* key;
     char* value;
     int balance;
     struct Node* leftSon;
@@ -29,23 +30,20 @@ bool isEmpty(Tree* tree)
 
 void deleteNodeRecursive(Node* nodeForDelete)
 {
-    if (nodeForDelete->rightSon != NULL)
+    if (nodeForDelete == NULL)
     {
-        deleteNodeRecursive(nodeForDelete->rightSon);
-        nodeForDelete->rightSon = NULL;
+        return;
     }
-    if (nodeForDelete->leftSon != NULL)
-    {
-        deleteNodeRecursive(nodeForDelete->leftSon);
-        nodeForDelete->leftSon = NULL;
-    }
+    deleteNodeRecursive(nodeForDelete->rightSon);
+    deleteNodeRecursive(nodeForDelete->leftSon);
     free(nodeForDelete->value);
+    free(nodeForDelete->key);
     free(nodeForDelete);
 }
 
 void deleteTree(Tree** tree)
 {
-    if ((*tree) == NULL)
+    if (*tree == NULL)
     {
         return;
     }
@@ -59,16 +57,16 @@ void deleteTree(Tree** tree)
 
 // Finds node of tree by key. Returns pointer to node.
 // If node with such key not found, returns NULL
-Node* searchNode(Tree* tree, const int key)
+Node* searchNode(Tree* tree, const char key[])
 {
     if (isEmpty(tree))
     {
         return NULL;
     }
     Node* current = tree->root;
-    while (current != NULL && current->key != key)
+    while (current != NULL && strcmp(current->key, key) != 0)
     {
-        if (key < current->key)
+        if (strcmp(key, current->key) < 0)
         {
             current = current->leftSon;
         }
@@ -77,14 +75,10 @@ Node* searchNode(Tree* tree, const int key)
             current = current->rightSon;
         }
     }
-    if (current != NULL && current->key == key)
-    {
-        return current;
-    }
-    return NULL;
+    return current;
 }
 
-bool treeContainThisKey(Tree* tree, const int key)
+bool treeContainThisKey(Tree* tree, const char key[])
 {
     return searchNode(tree, key) != NULL;
 }
@@ -234,7 +228,7 @@ Node* balance(Node* node)
     return node;
 }
 
-Node* insert(Node* current, const int key, const char value[], bool* needToCorrectBalance)
+Node* insert(Node* current, const char key[], const char value[], bool* needToCorrectBalance)
 {
     if (current == NULL)
     {
@@ -243,17 +237,24 @@ Node* insert(Node* current, const int key, const char value[], bool* needToCorre
         {
             return NULL;
         }
-        newNode->value = calloc(strlen(value) + 1, sizeof(char));
+        newNode->value = calloc(strlen(value) + 1, sizeof(char));;
         if (newNode->value == NULL)
         {
             free(newNode);
             return NULL;
         }
-        newNode->key = key;
+        newNode->key = calloc(strlen(key) + 1, sizeof(char));
+        if (newNode->key == NULL)
+        {
+            free(newNode->value);
+            free(newNode);
+            return NULL;
+        }
+        strcpy(newNode->key, key);
         strcpy(newNode->value, value);
         return newNode;
     }
-    if (key < current->key)
+    if (strcmp(key, current->key) < 0)
     {
         current->leftSon = insert(current->leftSon, key, value, needToCorrectBalance);
         if (*needToCorrectBalance)
@@ -285,7 +286,7 @@ Node* insert(Node* current, const int key, const char value[], bool* needToCorre
     return result;
 }
 
-bool add(Tree* tree, const int key, const char value[])
+bool add(Tree* tree, const char key[], const char value[])
 {
     if (tree == NULL)
     {
@@ -295,13 +296,14 @@ bool add(Tree* tree, const int key, const char value[])
     Node* newNode = searchNode(tree, key);
     if (newNode != NULL)
     {
-        free(newNode->value);
-        newNode->value = calloc(strlen(value) + 1, sizeof(char));
-        if (newNode->value == NULL)
+        char* newValue = calloc(strlen(value) + 1, sizeof(char));
+        if (newValue == NULL)
         {
             return false;
         }
-        strcpy(newNode->value, value);
+        strcpy(newValue, value);
+        free(newNode->value);
+        newNode->value = newValue;
         return true;
     }
     
@@ -310,7 +312,7 @@ bool add(Tree* tree, const int key, const char value[])
     return tree->root != NULL;
 }
 
-Node* deleteNode(Node* node, const int key, bool* needToCorrectBalance)
+Node* deleteNode(Node* node, const char key[], bool* needToCorrectBalance)
 {
     if (node == NULL)
     {
@@ -318,11 +320,12 @@ Node* deleteNode(Node* node, const int key, bool* needToCorrectBalance)
         return NULL;
     }
 
-    if (node->key == key)
+    if (strcmp(node->key, key) == 0)
     {
         if (node->leftSon == NULL && node->rightSon == NULL)
         {
             free(node->value);
+            free(node->key);
             free(node);
             return NULL;
         }
@@ -330,6 +333,7 @@ Node* deleteNode(Node* node, const int key, bool* needToCorrectBalance)
         {
             Node* result = node->rightSon;
             free(node->value);
+            free(node->key);
             free(node);
             return result;
         }
@@ -337,6 +341,7 @@ Node* deleteNode(Node* node, const int key, bool* needToCorrectBalance)
         {
             Node* result = node->leftSon;
             free(node->value);
+            free(node->key);
             free(node);
             return result;
         }
@@ -346,15 +351,21 @@ Node* deleteNode(Node* node, const int key, bool* needToCorrectBalance)
         {
             nodeForSwap = nodeForSwap->rightSon;
         }
-        node->key = nodeForSwap->key;
-        free(node->value);
-        node->value = calloc(strlen(nodeForSwap->value) + 1, sizeof(char));
-        if (node->value == NULL)
+
+        char* newKey = calloc(strlen(nodeForSwap->key) + 1, sizeof(char));
+        char* newValue = calloc(strlen(nodeForSwap->value) + 1, sizeof(char));
+        if (newKey == NULL || newValue == NULL)
         {
             return NULL;
         }
-        strcpy(node->value, nodeForSwap->value);
-        node->leftSon = deleteNode(node->leftSon, nodeForSwap->key, needToCorrectBalance);
+        strcpy(newKey, nodeForSwap->key);
+        strcpy(newValue, nodeForSwap->value);
+        free(node->key);
+        free(node->value);
+        node->key = newKey;
+        node->value = newValue;
+
+        node->leftSon = deleteNode(node->leftSon, *(nodeForSwap->key), needToCorrectBalance);
         if (*needToCorrectBalance)
         {
             (node->balance)++;
@@ -365,7 +376,7 @@ Node* deleteNode(Node* node, const int key, bool* needToCorrectBalance)
         }
         return balance(node);
     }
-    else if (key < node->key)
+    else if (strcmp(key, node->key) < 0)
     {
         node->leftSon = deleteNode(node->leftSon, key, needToCorrectBalance);
         if (*needToCorrectBalance)
@@ -397,7 +408,7 @@ Node* deleteNode(Node* node, const int key, bool* needToCorrectBalance)
     return result;
 }
 
-void deleteNodeByKey(Tree* tree, const int key)
+void deleteNodeByKey(Tree* tree, const char key[])
 {
     if (isEmpty(tree))
     {
@@ -407,7 +418,7 @@ void deleteNodeByKey(Tree* tree, const int key)
     tree->root = deleteNode(tree->root, key, &needToCorrectBalance);
 }
 
-char* getValueByKey(Tree* tree, const int key)
+char* getValueByKey(Tree* tree, const char key[])
 {
     if (isEmpty(tree))
     {
@@ -419,4 +430,44 @@ char* getValueByKey(Tree* tree, const int key)
         return NULL;
     }
     return nodeWithThiskey->value;
+}
+
+int getHeight(Node* node)
+{
+    if (node == NULL)
+    {
+        return 0;
+    }
+    if (node->leftSon == NULL && node->rightSon == NULL)
+    {
+        return 1;
+    }
+    return max(getHeight(node->leftSon), getHeight(node->rightSon)) + 1;
+}
+
+bool isNodeBalanced(Node* node)
+{
+    if (getHeight(node->rightSon) - getHeight(node->leftSon) == node->balance && abs(node->balance) <= 1)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool testBalanceRecursive(Node* node)
+{
+    if (node == NULL || node->leftSon == NULL && node->rightSon == NULL)
+    {
+        return true;
+    }
+    return isNodeBalanced(node) && testBalanceRecursive(node->leftSon) && testBalanceRecursive(node->rightSon);
+}
+
+bool isTreeBalanced(Tree* tree)
+{
+    if (isEmpty(tree))
+    {
+        return true;
+    }
+    return testBalanceRecursive(tree->root);
 }

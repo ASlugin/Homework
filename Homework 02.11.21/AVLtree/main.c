@@ -41,9 +41,11 @@ int main(void)
             }
             case 1:
             {
+                char key[SIZE + 1] = {'\0'};
                 printf("Enter key: ");
-                scanf("%d", &key);
                 getchar();
+                gets_s(key, SIZE);
+
                 char value[SIZE + 1] = {'\0'};
                 printf("Enter value less than %d characters: ", SIZE);
                 gets_s(value, SIZE);
@@ -58,33 +60,42 @@ int main(void)
             }
             case 2:
             {
+                char key[SIZE + 1] = { '\0' };
                 printf("Enter key: ");
-                scanf("%d", &key);
+                getchar();
+                gets_s(key, SIZE);
+
                 char* result = getValueByKey(dictionary, key);
                 if (result == NULL)
                 {
-                    printf("Key %d is not contained in dictionary\n", key);
+                    printf("Key %s is not contained in dictionary\n", key);
                     break;
                 }
-                printf("Value by key %d: %s\n", key, result);
+                printf("Value by key %s: %s\n", key, result);
                 break;
             }
             case 3:
             {
+                char key[SIZE + 1] = {'\0'};
                 printf("Enter key: ");
-                scanf("%d", &key);
+                getchar();
+                gets_s(key, SIZE);
+
                 if (treeContainThisKey(dictionary, key))
                 {
-                    printf("Key %d is contained in dictionary\n", key);
+                    printf("Key %s is contained in dictionary\n", key);
                     break;
                 }
-                printf("Key %d is not contained in dictionary\n", key);
+                printf("Key %s is not contained in dictionary\n", key);
                 break;
             }
             case 4:
             {
+                char key[SIZE + 1] = {'\0'};
                 printf("Enter key: ");
-                scanf("%d", &key);
+                getchar();
+                gets_s(key, SIZE);
+
                 deleteNodeByKey(dictionary, key);
                 printf("Deleted\n");
                 break;

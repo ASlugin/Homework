@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 
-// Structure for tree. It contains pointer to root of tree
+// Structure for dictionary
 typedef struct Tree Tree;
 
 // Creates tree. If allocation is error, returns NULL
@@ -15,15 +15,18 @@ bool isEmpty(Tree* tree);
 void deleteTree(Tree** tree);
 
 // Returns true if there is key in tree
-bool treeContainThisKey(Tree* tree, const int key);
+bool treeContainThisKey(Tree* tree, const char key[]);
 
 // Adds data to tree. Doesn't take control of value.
 // If such key already exist, replaces value with new value.
 // Returns true if the addition was successful.
-bool add(Tree* tree, const int key, const char value[]);
+bool add(Tree* tree, const char key[], const char value[]);
 
 // Deletes node with given key
-void deleteNodeByKey(Tree* tree, const int key);
+void deleteNodeByKey(Tree* tree, const char key[]);
 
 // Returns pointer to value by given key. If there is not key in tree, returns NULL
-char* getValueByKey(Tree* tree, const int key);
+char* getValueByKey(Tree* tree, const char key[]);
+
+// Return true if tree is balanced, else returns false
+bool isTreeBalanced(Tree* tree);
