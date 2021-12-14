@@ -9,7 +9,7 @@
 void binToDec(char* binArray, char* result)
 {
     int decNumber = 0;
-    int amount = strlen(binArray);
+    const int amount = strlen(binArray);
     for (int i = amount - 1; i >= 0; --i)
     {
         decNumber = decNumber | (binArray[i] & 1) << (amount - 1 - i);
@@ -20,7 +20,7 @@ void binToDec(char* binArray, char* result)
 bool isTestPassing(void)
 {
     #define AMOUNTTEST 3
-    const char binString[AMOUNTTEST][SIZE] = {"101", "110011", "11101010"};
+    char binString[AMOUNTTEST][SIZE] = {"101", "110011", "11101010"};
     const char resultString[AMOUNTTEST][SIZE] = {"5", "51", "234" };
     for (int i = 0; i < AMOUNTTEST; ++i)
     {
@@ -43,11 +43,12 @@ int main(void)
     }
 
     char string[SIZE] = {'\0'};
+    printf("Enter binary number: ");
     scanf("%s", string);
 
     char result[SIZE] = {'\0'};
     binToDec(string, result);
-    printf("%s\n", result);
+    printf("Number in decimal form: %s\n", result);
     
     return 0;
 }
