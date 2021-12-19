@@ -1,8 +1,13 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 #include <math.h>
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        return 1; //without tests
+    }
     int maxNumber = 0;
     printf("%s", "Enter numder: ");
     scanf("%d", &maxNumber);

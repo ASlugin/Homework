@@ -1,4 +1,5 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 
 void swapArray(int array[], int start, int end)
 {
@@ -10,8 +11,12 @@ void swapArray(int array[], int start, int end)
     }
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        return 1; //without tests
+    }
     int m = 0;
     printf("%s\n", "(m + n <= 100)");
     printf("%s", "Enter value \"m\": ");

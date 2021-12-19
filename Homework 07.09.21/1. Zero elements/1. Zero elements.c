@@ -1,7 +1,12 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        return 1; //without tests
+    }
     int nameArray[10];
     printf("%s", "Enter 10 array elements: ");
     int count = 0;
@@ -13,5 +18,6 @@ int main()
             count++;
         }
     }
-    printf("%s %d", "Zero elements:", count);
+    printf("%s%d", "Zero elements: ", count);
+    return 0;
 }

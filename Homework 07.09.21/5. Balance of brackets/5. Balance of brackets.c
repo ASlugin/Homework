@@ -1,8 +1,13 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 #include <string.h>
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        return 1; //without tests
+    }
     char string[51] = { 0 };
     printf("%s", "Enter string no longer than 50 characters: ");
     scanf("%s", string);
