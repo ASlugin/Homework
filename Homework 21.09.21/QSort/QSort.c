@@ -1,4 +1,5 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -80,13 +81,21 @@ bool tests()
     return true;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!tests())
     {
-        printf("%s", "Tests failed!");
+        if (argc <= 1)
+        {
+            printf("%s", "Tests failed!");
+        }
+        return -1;
+    }
+    if (argc > 1)
+    {
         return 0;
     }
+
     int amount = 0;
     printf("%s ", "Enter amount of array elements:");
     scanf("%d", &amount);
@@ -94,7 +103,7 @@ int main()
     if (array == NULL)
     {
         printf("%s", "Allocation error");
-        return 0;
+        return -1;
     }
     printf("%s ", "Enter array elements:");
     for (int i = 0; i < amount; ++i)
