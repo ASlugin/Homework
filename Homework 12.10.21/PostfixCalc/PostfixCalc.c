@@ -122,13 +122,21 @@ bool areTestsPassing()
     return true;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!areTestsPassing())
     {
-        printf("%s", "Tests failed!");
+        if (argc <= 1)
+        {
+            printf("%s", "Tests failed!");
+        }
         return -1;
     }
+    if (argc > 1)
+    {
+        return 0;
+    }
+
     #define SIZE 300
     printf("%s%d%s", "Enter expression in postfix form less then ", SIZE, " characters: ");
     char string[SIZE] = "\0";

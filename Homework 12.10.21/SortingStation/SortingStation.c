@@ -2,12 +2,19 @@
 #include "InfixToPostfix.h"
 #include "Tests.h"
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!areTestsPassing())
     {
-        printf("%s", "Tests failed!");
+        if (argc <= 1)
+        {
+            printf("%s", "Tests failed!");
+        }
         return -1;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
 
     #define SIZE 300
