@@ -76,11 +76,18 @@ bool test()
     return true;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!test())
     {
-        printf("Test failed!");
+        if (argc <= 1)
+        {
+            printf("Test failed!");
+        }
+        return -1;
+    }
+    if (argc > 1)
+    {
         return 0;
     }
     if (rewriteElements("g.txt", "f.txt", "h.txt") == -1)

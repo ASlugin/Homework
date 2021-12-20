@@ -49,12 +49,19 @@ bool areTestsPassing()
     return true;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!areTestsPassing())
     {
-        printf("Tests failed!");
+        if (argc <= 1)
+        {
+            printf("Tests failed!");
+        }
         return -1;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
 
     #define SIZE 8
