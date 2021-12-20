@@ -2,8 +2,12 @@
 #include <stdio.h>
 #include "List.h"
 
-int  main()
+int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        return 1;
+    }
     List* list = createListAndReadDataFromFile("Input.txt");
     if (list == NULL)
     {
