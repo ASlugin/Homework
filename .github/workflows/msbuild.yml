@@ -3,7 +3,7 @@ name: MSBuild
 on: [push]
 
 env:
-  SOLUTION_FILE_PATH: ./Homework\ 21.09.21/MostFrequentElement
+  SOLUTION_FILE_PATH: "./Homework 21.09.21/MostFrequentElement"
   BUILD_CONFIGURATION: Release
   
 jobs:
