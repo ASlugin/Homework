@@ -64,17 +64,27 @@ bool areTestsPassing()
            && positionOfLatter(7, 3) == 4;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!areTestCyclicListPassing())
     {
-        printf("Tests of list failed!");
+        if (argc <= 1)
+        {
+            printf("Tests of list failed!");
+        }
         return -1;
     }
     if (!areTestsPassing())
     {
-        printf("Tests failed!");
+        if (argc <= 1)
+        {
+            printf("Tests failed!");
+        }
         return -1;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
 
     int n = 0;
@@ -103,4 +113,5 @@ int main()
             return 0;
         }
     }
+    return 0;
 }

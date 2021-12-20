@@ -4,12 +4,19 @@
 #include "List.h"
 #include "Tests.h"
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!areTestPassing())
     {
-        printf("Tests failed!");
+        if (argc <= 1)
+        {
+            printf("Tests failed!");
+        }
         return -1;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
 
     List* sortedList = createList();
@@ -81,4 +88,5 @@ int main()
             }
         }
     }
+    return 0;
 }

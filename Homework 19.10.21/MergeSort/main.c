@@ -5,17 +5,28 @@
 #include "MergeSort.h"
 #include "Tests.h"
 
-int main(void)
+int main(int argc, char* argv[])
 {
     if (!isTestListPassing())
     {
-        printf("Tests of list failed!");
+        if (argc <= 1)
+        {
+            printf("Tests of list failed!");
+        }
         return -1;
     }
     if (!areTestsPassing())
     {
-        printf("Tests failed!");
+        if (argc <= 1)
+        {
+
+            printf("Tests failed!");
+        }
         return -1;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
 
     List* list = readDataFromFile("Input.txt");
