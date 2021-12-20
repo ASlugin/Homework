@@ -4,13 +4,21 @@
 #include "ActionsOnPhoneBook.h"
 #include "Tests.h"
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!tests())
     {
-        printf("%s", "Tests failed!");
+        if (argc <= 1)
+        {
+            printf("%s", "Tests failed!");
+        }
+        return -1;
+    }
+    if (argc > 1)
+    {
         return 0;
     }
+
     PhoneBook records[100];
     int countRecords = 0;
     readInitialFile(records, &countRecords, "PhoneBook.txt");

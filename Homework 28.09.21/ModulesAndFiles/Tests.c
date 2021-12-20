@@ -1,4 +1,5 @@
 #include "Tests.h"
+#include "QuickSort.h"
 
 bool tests()
 {

@@ -4,46 +4,26 @@
 #include "QuickSort.h"
 #include "Tests.h"
 
-int frequentElement(int *array, int amount)
-{
-    int maxAmountIdenticalElement = 0;
-    int countIdentical = 0;
-    int element = 0;
-    for (int i = 1; i < amount; ++i)
-    {
-        if (array[i - 1] == array[i])
-        {
-            ++countIdentical;
-            if (countIdentical + 1 > maxAmountIdenticalElement)
-            {
-                maxAmountIdenticalElement = countIdentical + 1;
-                element = array[i - 1];
-            }
-        }
-        else
-        {
-            countIdentical = 0;
-        }
-    }
-    if (maxAmountIdenticalElement == 0)
-    {
-        element = array[0];
-    }
-    return element;
-}
-
-int main()
+int main(int argc, char* argv[])
 {
     if (!tests())
     {
-        printf("%s", "Tests failed!");
+        if (argc <= 1)
+        {
+            printf("%s", "Tests failed!");
+        }
+        return -1;
+    }
+    if (argc > 1)
+    {
         return 0;
     }
+
     FILE* input = fopen("input.txt", "r");
     if (input == NULL)
     {
         printf("%s", "File not found!");
-        return 0;
+        return -1;
     }
 
     int amount = 0;
@@ -60,7 +40,7 @@ int main()
     {
         printf("%s", "Allocation error");
         fclose(input);
-        return 0;
+        return -1;
     }
     for (int i = 0; i < amount; ++i)
     {

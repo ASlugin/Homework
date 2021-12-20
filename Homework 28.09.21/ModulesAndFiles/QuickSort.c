@@ -28,3 +28,31 @@ void quickSort(int *array, int left, int right)
         quickSort(array, elementInRightPlace + 1, right);
     }
 }
+
+int frequentElement(int* array, int amount)
+{
+    int maxAmountIdenticalElement = 0;
+    int countIdentical = 0;
+    int element = 0;
+    for (int i = 1; i < amount; ++i)
+    {
+        if (array[i - 1] == array[i])
+        {
+            ++countIdentical;
+            if (countIdentical + 1 > maxAmountIdenticalElement)
+            {
+                maxAmountIdenticalElement = countIdentical + 1;
+                element = array[i - 1];
+            }
+        }
+        else
+        {
+            countIdentical = 0;
+        }
+    }
+    if (maxAmountIdenticalElement == 0)
+    {
+        element = array[0];
+    }
+    return element;
+}
