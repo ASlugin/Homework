@@ -1,4 +1,5 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
@@ -58,11 +59,19 @@ bool tests()
     return true;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!tests())
     {
-        printf("%s", "Tests failed!");
+        if (argc <= 1)
+        {
+
+            printf("%s", "Tests failed!");
+        }
+        return -1;
+    }
+    if (argc > 1)
+    {
         return 0;
     }
     srand(time(NULL));

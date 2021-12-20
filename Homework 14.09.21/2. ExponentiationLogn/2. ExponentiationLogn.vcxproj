@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{747fb6f5-607f-42f6-9bb4-671527500e59}</ProjectGuid>
-    <RootNamespace>ExponentiationLogn</RootNamespace>
+    <RootNamespace>2. ExponentiationLogn</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ExponentiationLogn.c">
+    <ClCompile Include="2. ExponentiationLogn.c">
       <DiagnosticsFormat Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Classic</DiagnosticsFormat>
       <SDLCheck Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</SDLCheck>
     </ClCompile>

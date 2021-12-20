@@ -1,4 +1,5 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 #include <stdbool.h>
 
 int fibonacci(int number)
@@ -42,11 +43,18 @@ bool test()
     return true;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!test())
     {
-        printf("%s", "Tests failed");
+        if (argc <= 1)
+        {
+            printf("%s", "Tests failed");
+        }
+        return -1;
+    }
+    if (argc > 1)
+    {
         return 0;
     }
     int numberFibonacci = -1;
@@ -56,7 +64,7 @@ int main()
     if (result == -1)
     {
         printf("%s", "Incorrect fibonacci number");
-        return 0;
+        return -1;
     }
     printf("%d %s %d", numberFibonacci, "fibonacci number:", result);
     return 0;
