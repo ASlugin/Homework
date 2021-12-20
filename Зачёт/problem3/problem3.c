@@ -65,7 +65,7 @@ bool isCorrectSymbol(const char symbol, int* state)
     }
 }
 
-bool isCorrectString(char* string)
+bool isCorrectString(const char* string)
 {
     const int length = strlen(string);
     int state = 0;
@@ -94,12 +94,19 @@ bool isTestsPassing(void)
     return true;
 }
 
-int main(void)
+int main(int argc, char* argv[])
 {
     if (!isTestsPassing())
     {
-        printf("Tests failed!\n");
+        if (argc <= 1)
+        {
+            printf("Tests failed!\n");
+        }
         return -1;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
 
     char string[SIZE] = {'\0'};

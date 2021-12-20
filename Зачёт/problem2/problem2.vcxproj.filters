@@ -15,8 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="problem2.cpp">
+    <ClCompile Include="problem2.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="TwoDimensionalArray.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TwoDimensionalArray.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

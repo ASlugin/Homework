@@ -34,12 +34,19 @@ bool isTestPassing(void)
     return true;
 }
 
-int main(void)
+int main(int argc, char* argv[])
 {
     if (!isTestPassing())
     {
-        printf("Test failed!");
+        if (argc <= 1)
+        {
+            printf("Test failed!");
+        }
         return -1;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
 
     char string[SIZE] = {'\0'};

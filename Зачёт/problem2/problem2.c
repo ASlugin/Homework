@@ -2,8 +2,12 @@
 #include "TwoDimensionalArray.h"
 #include <stdio.h>
 
-int main(void)
+int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        return 1;
+    }
     int numberOfRows = 0;
     int numberOfColumns = 0;
     printf("Enter number of rows: ");
@@ -12,7 +16,6 @@ int main(void)
     scanf("%d", &numberOfColumns);
     
     TwoDimensionalArray* array = createArray(numberOfRows, numberOfColumns);
-
 
     return 0;
 }
