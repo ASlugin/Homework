@@ -3,18 +3,18 @@ name: MSBuild
 on: [push]
 
 env:
-  SOLUTION_FILE_PATH: "./Homework 21.09.21/MostFrequentElement"
+  SOLUTION_FILE_PATH: ./Зачёт/problem1
   BUILD_CONFIGURATION: Release
-  
+
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1.1
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
