@@ -5,13 +5,21 @@
 #include "Tree.h"
 #include "Test.h"
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!isTestPassing())
     {
-        printf("Tests failed!");
+        if (argc <= 1)
+        {
+            printf("Tests failed!");
+        }
         return -1;
     }
+    if (argc > 1)
+    {
+        return 0;
+    }
+
     Tree* dictionary = createTree();
     if (dictionary == NULL)
     {
@@ -101,4 +109,5 @@ int main()
             }
         }
     }
+    return 0;
 }

@@ -3,12 +3,19 @@
 #include "Tree.h"
 #include "Test.h"
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!areTestsPassing())
     {
-        printf("Test failed!");
+        if (argc <= 1)
+        {
+            printf("Test failed!");
+        }
         return -1;
+    }
+    if (argc > 1)
+    {
+        return 0;
     }
 
     Tree* tree = createTreeAndReadFromFile("Input.txt");
