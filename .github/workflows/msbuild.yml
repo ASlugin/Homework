@@ -2,9 +2,6 @@ name: MSBuild
 
 on: [push]
 
-env:
-  SOLUTION_FILE_PATH: .
-
 jobs:
   build:
     runs-on: windows-latest
@@ -17,4 +14,4 @@ jobs:
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild /m /p:Configuration=release ${{env.SOLUTION_FILE_PATH}}
+      run: msbuild -version
