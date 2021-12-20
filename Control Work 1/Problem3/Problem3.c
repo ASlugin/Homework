@@ -1,8 +1,13 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        return 1;
+    }
+
     FILE* file = fopen("file.txt", "r");
     if (file == NULL)
     {
