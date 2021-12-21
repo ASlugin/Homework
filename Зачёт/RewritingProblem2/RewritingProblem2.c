@@ -71,10 +71,10 @@ int main(int argc, char* argv[])
                 int result = dequeue(queue);
                 if (result == -1)
                 {
-                    printf("Queue os empmty!\n");
+                    printf("Queue is empty!\n");
                     break;
                 }
-                printf("Highest priority element of queue: %d", result);
+                printf("Highest priority element of queue: %d\n", result);
                 break;
             }
             case 3:
