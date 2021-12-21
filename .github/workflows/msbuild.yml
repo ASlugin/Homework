@@ -8,10 +8,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
-
-    - name: Build
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild -version
+    
+    - name: Echo
+      run: echo "$GITHUB_SHA"
