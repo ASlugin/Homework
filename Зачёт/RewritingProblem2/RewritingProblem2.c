@@ -85,6 +85,8 @@ int main(int argc, char* argv[])
                     printf("%d ", value);
                     value = dequeue(queue);
                 }
+                printf("\n");
+                break;
             }
             default:
             {
