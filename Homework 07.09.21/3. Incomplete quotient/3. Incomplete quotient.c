@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
     }
     int dividend = 0;
     int divisor = 0;
-    printf("%s", "Enter dividend and divisor: ");
+    printf("%s ", "Enter dividend and divisor:");
     scanf("%d %d", &dividend, &divisor);
     if (divisor == 0)
     {
