@@ -60,7 +60,7 @@ int main(void)
             }
             case 2:
             {
-                char key[SIZE + 1] = { '\0' };
+                char key[SIZE + 1] = {'\0'};
                 printf("Enter key: ");
                 getchar();
                 gets_s(key, SIZE);
