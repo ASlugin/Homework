@@ -26,7 +26,7 @@ int main(void)
     printHashTable(table);
     printf("Load factor of hash table: %.2f\n", getLoadFactor(table));
     printf("Maximum length of list in hash table: %d\n", getMaximumLength(table));
-    printf("Avarage length of list in hash table: %.2f\n", getAvarageLength(table));
+    printf("Avarage length of list in hash table: %.2f\n", getAverageLength(table));
 
     deleteHashTable(&table);
     return 0;

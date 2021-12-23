@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SIZE_WORD 100
-
 typedef struct ListElement
 {
     char word[SIZE_WORD];

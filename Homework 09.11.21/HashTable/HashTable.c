@@ -10,9 +10,9 @@
 
 typedef struct HashTable
 {
-        List** array;
-        int numberOfEntries;
-        int numberOfBuckets;
+    List** array;
+    int numberOfEntries;
+    int numberOfBuckets;
 } HashTable;
 
 HashTable* createHashTable(void)
@@ -61,9 +61,11 @@ int hashFunction(const char word[], int numberOfBuckets)
 {
     const int length = strlen(word);
     int hash = 0;
+    int multiplier = 7;
     for (int i = 0; i < length; ++i)
     {
-        hash = (hash + word[i]) % numberOfBuckets;
+        hash = abs(hash * multiplier + word[i]) % numberOfBuckets;
+        multiplier = multiplier * 7;;
     }
     return hash;
 }
@@ -73,7 +75,7 @@ float getLoadFactor(HashTable* hashTable)
     return (float) hashTable->numberOfEntries / hashTable->numberOfBuckets;
 }
 
-bool resizing(HashTable* hashTable)
+bool resize(HashTable* hashTable)
 {
     int oldNumberOfBuckets = hashTable->numberOfBuckets;
     List** oldArray = hashTable->array;
@@ -116,7 +118,7 @@ bool addToHashTable(HashTable* hashTable, const char word[], const int currentCo
         return false;
     }
     ++hashTable->numberOfEntries;
-    return getLoadFactor(hashTable) > 1.2 ? resizing(hashTable) : true; 
+    return getLoadFactor(hashTable) > 1.2 ? resize(hashTable) : true; 
 }
 
 void printHashTable(HashTable* hashTable)
@@ -148,7 +150,7 @@ int getMaximumLength(HashTable* hashTable)
     return maxLength;
 }
 
-float getAvarageLength(HashTable* hashTable)
+float getAverageLength(HashTable* hashTable)
 {
     if (hashTable == NULL)
     {
@@ -172,7 +174,7 @@ bool readDataFromFile(HashTable* hashTable, const char name[])
     while (!feof(file))
     {
         char word[SIZE_WORD] = {'\0'};
-        fscanf(file, "%s%*c", word);
+        fscanf_s(file, "%s%*c", word, SIZE_WORD);
         if (!addToHashTable(hashTable, word, 1))
         {
             fclose(file);

@@ -25,7 +25,7 @@ void printHashTable(HashTable* hashTable);
 int getMaximumLength(HashTable* hashTable);
 
 // Returns avarege length of lists in hash table
-float getAvarageLength(HashTable* hashTable);
+float getAverageLength(HashTable* hashTable);
 
 // Reads data from file and puts them to hash table
 // Returns true if reading is success, else returns false

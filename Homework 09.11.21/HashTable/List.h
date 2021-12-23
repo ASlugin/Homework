@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdbool.h>
+#define SIZE_WORD 100
 
 // Structure for list
 typedef struct List List;

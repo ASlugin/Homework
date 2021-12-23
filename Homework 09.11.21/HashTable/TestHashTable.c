@@ -22,7 +22,7 @@ bool isTestHashTablePassing(void)
         return false;
     }
 
-    bool result = 0.93 - getLoadFactor(table) < 0.001 && getMaximumLength(table) == 3 && 0.73 - getAvarageLength(table) < 0.001;
+    bool result = abs((int)(0.93 - getLoadFactor(table)) * 100) < 1 && getMaximumLength(table) == 3 && abs((int)(0.73 - getAverageLength(table)) * 100) < 1;
     deleteHashTable(&table);
     return result;
 }
