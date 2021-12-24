@@ -17,4 +17,4 @@ jobs:
     
     - name: Test
       shell: cmd
-      run: .\test.bat
+      run: .\build.bat
