@@ -13,4 +13,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.3
     
     - name: Build
-      run: build.bat
+      run: msbuild 'Homework 21.09.21/MostFrequentElement/MostFrequentElement.sln' /p:configuration=Debug /p:platform=x64
+    
+    - name: Test
+      run: 'Homework 21.09.21/MostFrequentElement/x64/Debug/MostFrequentElement.exe'
