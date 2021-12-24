@@ -12,5 +12,10 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.3
     
-    - name: Build
-      run: msbuild 'Homework 21.09.21/MostFrequentElement/MostFrequentElement.sln' /p:configuration=Debug /p:platform=x64
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'
+        
+    - name: Build with dotnet
+      run: for f in $(find . -name "*.sln"); do dotnet build $f; done
