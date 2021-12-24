@@ -9,5 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Echo
-      run: echo "Deploying to production server on branch $GITHUB_REF"
+    - name: List files in the repository
+      run: |
+        ls ${{ github.workspace }}
