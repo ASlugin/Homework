@@ -41,17 +41,15 @@ bool stringsMatch(const char searchString[], const char string[], const int star
     return true;
 }
 
-// Returns position of first occurrence searchString in string
-// Returns -1 if searchString not found in string
 int rabinKarpSearchInString(const char searchString[], const char string[])
 {
-    int lengthSearchString = strlen(searchString);
-    int lengthString = strlen(string);
+    const int lengthSearchString = strlen(searchString);
+    const int lengthString = strlen(string);
     if (lengthSearchString > lengthString)
     {
         return -1;
     }
-    int hashSearchString = hash(searchString, 0, lengthSearchString);
+    const int hashSearchString = hash(searchString, 0, lengthSearchString);
     int hashStringForComparison = hash(string, 0, lengthSearchString);
     if (hashSearchString == hashStringForComparison && stringsMatch(searchString, string, 0, lengthSearchString))
     {
